@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://iklimicinogretmenler.metu.edu.tr/sitemap.xml
