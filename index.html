@@ -8,20 +8,20 @@
   <meta name="description" content="Fen bilimleri öğretmenleri için ODTÜ Eğitim Fakültesi'nde yürütülen, iklim değişikliği eğitimi odaklı araştırma temelli mesleki gelişim programı. 4-5 ve 11-12 Nisan 2026, Ankara." />
   <meta name="keywords" content="iklim değişikliği eğitimi, fen bilimleri öğretmeni, mesleki gelişim, ODTÜ, Eğitim Fakültesi, iklim okuryazarlığı, sürdürülebilir kalkınma için eğitim, öğretmen eğitimi" />
   <meta name="author" content="ODTÜ Eğitim Fakültesi" />
-  <link rel="canonical" href="https://iklimicinogretmenler.metu.edu.tr/" />
+  <link rel="canonical" href="https://iklimicinogret.org/" />
 
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="tr_TR" />
   <meta property="og:title" content="İklim için Değişen ve Dönüştüren Öğretmenler" />
-  <meta property="og:description" content="Fen bilimleri öğretmenleri için ODTÜ Eğitim Fakültesi'nde yürütülen, iklim değişikliği eğitimi odaklı mesleki gelişim programı." />
-  <meta property="og:image" content="files/panel/panel-23.jpg" />
-  <meta property="og:image:width" content="1131" />
-  <meta property="og:image:height" content="1600" />
+  <meta property="og:description" content="ODTÜ Eğitim Fakültesi'nde Prof. Dr. Elvan Şahin yürütücülüğünde ve Arş. Gör. Ceren Başer Kanbak tarafından geliştirilen, iklim değişikliği eğitimi odaklı araştırma temelli mesleki gelişim programı." />
+  <meta property="og:image" content="files/logos/project-logo-square.png" />
+  <meta property="og:image:width" content="1000" />
+  <meta property="og:image:height" content="1000" />
   <meta property="og:site_name" content="İklim için Değişen ve Dönüştüren Öğretmenler" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="İklim için Değişen ve Dönüştüren Öğretmenler" />
-  <meta name="twitter:description" content="ODTÜ Eğitim Fakültesi · BAP 11858 · Fen bilimleri öğretmenleri için iklim değişikliği eğitimi mesleki gelişim programı." />
-  <meta name="twitter:image" content="files/panel/panel-23.jpg" />
+  <meta name="twitter:description" content="ODTÜ Eğitim Fakültesi · Prof. Dr. Elvan Şahin · Arş. Gör. Ceren Başer Kanbak · İklim değişikliği eğitimi odaklı mesleki gelişim programı." />
+  <meta name="twitter:image" content="files/logos/project-logo-square.png" />
 
   <link rel="icon" type="image/png" href="project.png" />
   <link rel="apple-touch-icon" href="project.png" />
@@ -105,17 +105,27 @@
       --muted: #4a6359;
       --line: rgba(19, 36, 29, 0.10);
       --green: #0f3c2f;
+      --green-deep: #0b2f24;
       --accent: #0f8e7d;
       --accent-bright: #18b8a6;
       --accent-soft: #daf6f0;
       --shadow: 0 16px 42px rgba(17, 34, 28, 0.08);
       --radius: 22px;
+      --radius-sm: 16px;
       --max: 1180px;
       --pad: clamp(18px, 4vw, 72px);
     }
 
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
     body {
       margin: 0;
       font-family: "Inter", system-ui, -apple-system, sans-serif;
@@ -483,6 +493,7 @@
       place-items: center;
       flex: none;
       color: var(--accent);
+      font-size: 1.1rem;
     }
     .info-item h3 {
       margin: 0 0 4px;
@@ -542,7 +553,7 @@
     .cards-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0,1fr));
-      gap: 16px;
+      gap: 18px;
       margin-top: 28px;
     }
     .card {
@@ -576,6 +587,7 @@
       place-items: center;
       color: var(--accent);
       flex: none;
+      font-size: 1.1rem;
     }
     .card h3 {
       margin: 0;
@@ -617,11 +629,13 @@
       border: 1px solid rgba(15,142,125,.30);
     }
     .card-cta.ghost:hover { background: var(--accent-soft); }
+    .card-cta.disabled,
     .badge-soft {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 16px;
       background: #fff5d8;
       color: #8a6a00;
       font-size: .72rem;
@@ -630,9 +644,16 @@
       text-transform: uppercase;
       border-radius: 999px;
     }
+    .card-cta.disabled {
+      background: rgba(15, 60, 47, .08);
+      color: rgba(19, 36, 29, .52);
+      border: 1px solid rgba(19, 36, 29, .12);
+      cursor: default;
+      pointer-events: none;
+    }
 
-    .team-block { margin-top: 34px; }
-    .team-block + .team-block { margin-top: 56px; }
+    .team-block { margin-top: 30px; }
+    .team-block + .team-block { margin-top: 48px; }
     .team-heading {
       margin: 0 0 18px;
       font-family: "Cormorant Garamond", serif;
@@ -660,7 +681,7 @@
     }
     .team-top {
       display: flex;
-      gap: 16px;
+      gap: 18px;
       align-items: flex-start;
       margin-bottom: 16px;
     }
@@ -670,8 +691,8 @@
       text-align: center;
     }
     .team-avatar {
-      width: 120px;
-      height: 120px;
+      width: 144px;
+      height: 144px;
       border-radius: 50%;
       flex: none;
       overflow: hidden;
@@ -682,7 +703,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: 50% 22%;
+      object-position: 50% 18%;
       display: block;
     }
     .team-copy { min-width: 0; flex: 1 1 auto; }
@@ -1028,7 +1049,7 @@
       margin:14px 0 18px;
       color:rgba(237,244,241,.8);
       line-height:1.9;
-      max-width:370px;
+      max-width:380px;
       font-size:.96rem;
     }
     .footer-logo-row{
@@ -1124,9 +1145,27 @@
       .section-title { font-size: clamp(1.85rem, 8vw, 2.4rem); }
       .panel { padding: 64px 0; }
       .team-top { flex-direction: column; align-items: center; text-align: center; }
-      .team-avatar { width: 104px; height: 104px; }
+      .team-avatar { width: 120px; height: 120px; }
       .footer-links { grid-template-columns: 1fr; }
       .stats { grid-template-columns: 1fr; }
+    }
+
+    /* Program section dark stage */
+    .program-dark {
+      background:
+        radial-gradient(900px 420px at 20% 0%, rgba(24,184,166,.12), transparent 55%),
+        radial-gradient(900px 420px at 80% 100%, rgba(15,142,125,.10), transparent 55%),
+        linear-gradient(180deg, #0e3126 0%, #0b271f 100%);
+      color: white;
+    }
+    .program-dark .section-title { color: white; }
+    .program-dark .section-lead { color: rgba(255,255,255,.76); }
+    .program-dark .poster {
+      background: rgba(255,255,255,.98);
+    }
+    .program-dark .poster:hover,
+    .program-dark .poster:focus-visible {
+      box-shadow: 0 24px 48px rgba(0,0,0,.24);
     }
   </style>
 </head>
@@ -1179,7 +1218,7 @@
         <div>
           <span class="hero-kicker">ODTÜ Eğitim Fakültesi · BAP Tez-D 11858</span>
           <h1>İklim için Değişen<br>ve Dönüştüren <em>Öğretmenler</em></h1>
-          <p class="hero-lead">Hizmet-içi öğretmenlerin iklim değişikliğini öğretme konusundaki yetkinliklerini güçlendirmek amacıyla hazırlanmış iş birliğine dayalı bir mesleki gelişim programıdır.</p>
+          <p class="hero-lead">Hizmet içi öğretmenlerin iklim değişikliğini öğretme konusundaki yetkinliklerini güçlendirmek amacıyla hazırlanmış iş birliğine dayalı bir mesleki gelişim programıdır.</p>
 
           <div class="hero-actions">
             <a class="btn btn-primary" href="#about">Projeyi İncele →</a>
@@ -1193,7 +1232,7 @@
 
         <div class="hero-logo-wrap" aria-hidden="true">
           <div class="hero-logo-card">
-            <img src="files/logos/project-logo-square.png" alt="Program logosu" onerror="this.onerror=null;this.src='project.png';">
+            <img src="files/logos/project-logo-square.png" alt="Program logosu" decoding="async">
           </div>
         </div>
       </div>
@@ -1204,7 +1243,6 @@
         <div class="story">
           <div class="eyebrow">Arka Plan</div>
           <h2 class="section-title">Proje Hakkında</h2>
-          <p class="section-lead">Öğretmenlerin iklim değişikliğini sınıflarına taşıyabilmeleri için tasarlanan, araştırma temelli bir mesleki gelişim programı.</p>
 
           <p>Bu program, öğretmenlerin iklim değişikliği eğitimindeki yetkinliklerini artırmayı hedefleyen kapsamlı bir mesleki gelişim ve etkileşim platformudur. Katılımcıların öğretim süreçlerinde aktif rol aldığı, yenilikçi ve kapsayıcı öğrenme ortamları sunan yapılandırılmış bir eğitim modelini içermektedir.</p>
 
@@ -1263,9 +1301,9 @@
       </div>
     </section>
 
-    <section class="panel reveal" id="program">
+    <section class="panel program-dark reveal" id="program">
       <div class="container">
-        <div class="eyebrow">Program</div>
+        <div class="eyebrow on-dark">Program</div>
         <h2 class="section-title">Program Akışı</h2>
 
         <div class="program-posters" id="programGrid">
@@ -1273,7 +1311,7 @@
             <img src="files/panel/thumb/panel-23.jpg" alt="Program akışı afişi" loading="lazy" decoding="async">
           </a>
           <a class="poster" href="files/panel/panel-25.jpg" data-pswp-width="1131" data-pswp-height="1600">
-            <img src="files/panel/thumb/panel-25.jpg" alt="Doç. Dr. Güliz Karaarslan Semiz tanıtım afişi" loading="lazy" decoding="async">
+            <img src="files/panel/thumb/panel-25.jpg" alt="Doç. Dr. Güliz Karaarslan-Semiz tanıtım afişi" loading="lazy" decoding="async">
           </a>
           <a class="poster" href="files/panel/program-extra.jpg" data-pswp-width="1600" data-pswp-height="2263">
             <img src="files/panel/thumb/program-extra.jpg" alt="Doç. Dr. Mehmet Şen tanıtım afişi" loading="lazy" decoding="async">
@@ -1297,21 +1335,20 @@
               <div class="ico" aria-hidden="true">📘</div>
               <h3>Öğretmen El Kitabı</h3>
             </div>
-            <p>Öğretmenlerin sınıf içi uygulamalarında kullanabilecekleri içerik ve etkinlikleri içeren rehber. (Yakında yüklenecek)</p>
+            <p>Bu PDF, öğretmen el kitapçığının önizleme sürümüdür. Sınıf içi uygulamalarda kullanılabilecek içerik ve etkinliklerin seçilmiş bir derlemesini sunar.</p>
             <div class="card-footer">
-              <span class="badge-soft">Yakında</span>
               <a class="card-cta" href="files/ogretmenelkitabi.pdf" target="_blank" rel="noopener">PDF İndir</a>
             </div>
           </article>
 
           <article class="card reveal">
             <div class="card-top">
-              <div class="ico" aria-hidden="true">🎞️</div>
-              <h3>Etkinlikten Kesitler</h3>
+              <div class="ico" aria-hidden="true">📗</div>
+              <h3>Nihai Kitapçık</h3>
             </div>
-            <p>Oturumlardan derlenen görseller. “İklim için Değişen ve Dönüştüren Öğretmenler” Mesleki Gelişim Programı’ndan derlenen görseller.</p>
+            <p>Program sürecinde üretilen içeriklerin bütüncül biçimde derleneceği nihai kitapçık, oturum akışı, uygulama notları ve seçili çıktılar için akademik bir özet sunacaktır.</p>
             <div class="card-footer">
-              <span class="badge-soft">Oturumlardan derlenen</span>
+              <span class="card-cta disabled" aria-disabled="true">Yakında</span>
             </div>
           </article>
 
@@ -1320,9 +1357,9 @@
               <div class="ico" aria-hidden="true">🖼️</div>
               <h3>Sınıf İçi Uygulama Örnekleri</h3>
             </div>
-            <p>Öğretmenlerimizin sınıf-içi uygulamalarından örnek paylaşımlar. (Yakında)</p>
+            <p>Öğretmenlerimizin sınıf içi uygulamalarından örnek paylaşımlar.</p>
             <div class="card-footer">
-              <span class="badge-soft">Yakında</span>
+              <span class="card-cta disabled" aria-disabled="true">Yakında</span>
             </div>
           </article>
 
@@ -1333,7 +1370,7 @@
             </div>
             <p>Akademik paylaşımlar.</p>
             <div class="card-footer">
-              <span class="badge-soft">Akademik paylaşımlar</span>
+              <span class="card-cta disabled" aria-disabled="true">Yakında</span>
             </div>
           </article>
         </div>
@@ -1343,7 +1380,6 @@
     <section class="panel reveal" id="team">
       <div class="container">
         <div class="eyebrow">Ekibimiz</div>
-        <h2 class="section-title">Ekip</h2>
 
         <div class="team-block">
           <h3 class="team-heading">Proje Ekibimiz</h3>
@@ -1480,7 +1516,7 @@
                 <button class="cinema-play" type="button" aria-label="Slaytları duraklat">
                   <span class="ico-pause">⏸</span>
                   <span class="ico-play">▶</span>
-                  <span>Gösteri</span>
+                  <span>Duraklat</span>
                 </button>
                 <button class="cinema-fullscreen" type="button" aria-label="Tam ekran">
                   <span>⤢</span>
@@ -1490,195 +1526,203 @@
             </div>
           </div>
         </div>
-
-        <div class="stats">
-          <div class="stat">
-            <strong>10+</strong>
-            <span>Etkinlik</span>
-          </div>
-          <div class="stat">
-            <strong>20+</strong>
-            <span>Katılımcı</span>
-          </div>
-          <div class="stat">
-            <strong>7</strong>
-            <span>Tema</span>
-          </div>
-        </div>
       </div>
     </section>
 
-    <section class="panel reveal" id="contact">
-      <div class="container contact-grid">
-        <div class="contact-box">
-          <span class="eyebrow">İletişim</span>
-          <h2 class="section-title">İletişime Geçin</h2>
-          <p>
-            Proje hakkında bilgi almak, iş birliği önermek veya materyallere erişim talep etmek için aşağıdaki kanalları kullanabilirsiniz.
-          </p>
-
-          <div class="contact-note">
-            Mesajlarınız proje ekibine doğrudan ulaşır. Eğitim materyalleri, iş birliği önerileri ve erişim talepleri için e-posta adresini kullanabilirsiniz.
-          </div>
-        </div>
-
-        <div class="contact-side">
-          <h3>Proje Ekibi</h3>
-          <div class="contact-list">
-            <div class="contact-card">
-              <div class="contact-label">E-posta</div>
-              <strong><a class="contact-email" href="mailto:iklimicinogret@gmail.com">iklimicinogret@gmail.com</a></strong>
-            </div>
-            <div class="contact-card">
-              <div class="contact-label">Yürütücü</div>
-              <strong>Prof. Dr. Elvan Şahin</strong>
-              <p>ODTÜ Matematik ve Fen Bilimleri Eğitimi Bölümü</p>
-            </div>
-            <div class="contact-card">
-              <div class="contact-label">Araştırmacı</div>
-              <strong>Arş. Gör. Ceren Başer Kanbak</strong>
-              <p>ODTÜ Matematik ve Fen Bilimleri Eğitimi Bölümü</p>
+    <section class="panel alt reveal" id="contact">
+      <div class="container">
+        <div class="eyebrow">İletişim</div>
+        <h2 class="section-title">İletişim</h2>
+<div class="contact-grid" style="margin-top:28px;">
+          <div class="contact-box reveal">
+            <h3>Kurumsal Çerçeve</h3>
+            <p>İklim için Değişen ve Dönüştüren Öğretmenler, ODTÜ Eğitim Fakültesi Matematik ve Fen Bilimleri Eğitimi Bölümü bünyesinde yürütülen, iklim değişikliği eğitimi odaklı bir mesleki gelişim programıdır.</p>
+            <div class="contact-note">
+              BAP Tez-D 11858 kapsamında desteklenen bu çalışma, araştırma ile uygulamayı aynı sahada buluşturur.
             </div>
           </div>
+
+          <aside class="contact-side reveal">
+            <h3>Yürütücü ve Araştırmacı</h3>
+            <div class="contact-list">
+              <div class="contact-card">
+                <div class="contact-label">Yürütücü</div>
+                <strong>Prof. Dr. Elvan Şahin</strong>
+                <p>ODTÜ Matematik ve Fen Bilimleri Eğitimi Bölümü</p>
+              </div>
+              <div class="contact-card">
+                <div class="contact-label">Araştırmacı</div>
+                <strong>Arş. Gör. Ceren Başer Kanbak</strong>
+                <p>ODTÜ Matematik ve Fen Bilimleri Eğitimi Bölümü</p>
+              </div>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
   </main>
 
+  
   <footer class="footer">
-    <div class="container footer-grid">
-      <div class="footer-brand">
-        <div class="footer-logo-row">
-          <img src="project.png" alt="Proje logosu">
-          <div>
-            <strong>İklim için Değişen ve Dönüştüren Öğretmenler</strong>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo-row">
+            <img src="project.png" alt="" width="44" height="44" decoding="async">
+            <strong>İklim için Değişen ve<br>Dönüştüren Öğretmenler</strong>
+          </div>
+          <p>Öğretmenlerin iklim değişikliği eğitiminde dönüştürücü rol üstlenmelerini desteklemek amacıyla geliştirilen araştırma temelli mesleki gelişim programı. ODTÜ Eğitim Fakültesi üyelerinden Prof. Dr. Elvan Şahin ve Arş. Gör. Ceren Başer Kanbak tarafından yürütülen doktora tez çalışmasıdır.</p>
+        </div>
+
+        <div>
+          <div class="footer-title">Sayfalar</div>
+          <div class="footer-links">
+            <a href="#about">Hakkında</a>
+            <a href="#team">Ekip</a>
+            <a href="#purpose">Amaç</a>
+            <a href="#gallery">Galeri</a>
+            <a href="#outputs">Çıktılar</a>
+            <a href="#contact">İletişim</a>
           </div>
         </div>
-        <p>Öğretmenlerin iklim değişikliği eğitiminde dönüştürücü rol üstlenmelerini desteklemek amacıyla geliştirilen araştırma temelli mesleki gelişim programı. ODTÜ Eğitim Fakültesi üyelerinden Prof. Dr. Elvan Şahin ve Arş. Gör. Ceren Başer Kanbak tarafından yürütülen doktora tez çalışmasıdır.</p>
-      </div>
 
-      <div>
-        <div class="footer-title">Sayfalar</div>
-        <div class="footer-links">
-          <a href="#about">Hakkında</a>
-          <a href="#team">Ekip</a>
-          <a href="#purpose">Amaç</a>
-          <a href="#gallery">Galeri</a>
-          <a href="#outputs">Çıktılar</a>
-          <a href="#contact">İletişim</a>
+        <div>
+          <div class="footer-title">Kurumsal</div>
+          <p class="footer-small">Orta Doğu Teknik Üniversitesi</p>
+          <p class="footer-small">BAP Tez-D · Proje No: 11858</p>
+          <img class="footer-logo-mark" src="odtu.png" alt="ODTÜ" decoding="async">
         </div>
       </div>
 
-      <div>
-        <div class="footer-title">Kurumsal</div>
-        <div class="footer-small">
-          Orta Doğu Teknik Üniversitesi<br>
-          BAP Tez-D · Proje No: 11858
-        </div>
-        <div class="footer-logos" style="margin-top:16px;">
-          <img class="footer-logo-mark" src="files/odtu-white.png" alt="ODTÜ beyaz logosu" onerror="this.onerror=null;this.src='odtu-white.png';">
-        </div>
+      <div class="footer-meta">
+        <span>© 2026 Orta Doğu Teknik Üniversitesi</span>
+        <span>İklim için Değişen ve Dönüştüren Öğretmenler</span>
       </div>
-
-      <div>
-        <div class="footer-title">İletişim</div>
-        <div class="footer-small">
-          <a href="mailto:iklimicinogret@gmail.com">iklimicinogret@gmail.com</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="container footer-meta">
-      <div>© 2026 Orta Doğu Teknik Üniversitesi</div>
-      <div>İklim için Değişen ve Dönüştüren Öğretmenler</div>
     </div>
   </footer>
 
+
   <script>
     const menuBtn = document.getElementById('menuBtn');
-    const navWrap = document.getElementById('mobileNav');
+    const mobileNav = document.getElementById('mobileNav');
     const topbar = document.querySelector('.topbar');
 
     menuBtn?.addEventListener('click', () => {
-      const open = navWrap.classList.toggle('show');
-      menuBtn.setAttribute('aria-expanded', String(open));
+      const isOpen = mobileNav.classList.toggle('show');
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
     });
 
-    navWrap?.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        navWrap.classList.remove('show');
+    mobileNav?.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileNav.classList.remove('show');
         menuBtn.setAttribute('aria-expanded', 'false');
       });
     });
 
-    const setNavState = () => {
-      if (!topbar) return;
-      topbar.classList.toggle('scrolled', window.scrollY > 12);
-    };
-    setNavState();
-    window.addEventListener('scroll', setNavState, { passive: true });
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 8) topbar.classList.add('scrolled');
+      else topbar.classList.remove('scrolled');
+    });
 
+    const revealEls = document.querySelectorAll('.reveal');
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add('is-visible');
       });
     }, { threshold: 0.12 });
+    revealEls.forEach(el => revealObserver.observe(el));
 
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    const stage = document.getElementById('cinemaStage');
+    const currentEl = document.querySelector('.cinema-counter .current');
+    const totalEl = document.querySelector('.cinema-counter .total');
+    const progressBar = document.querySelector('.cinema-progress span');
+    const playBtn = document.querySelector('.cinema-play');
+    const fullscreenBtn = document.querySelector('.cinema-fullscreen');
 
-    const swiperEl = document.querySelector('.cinema-swiper');
-    if (swiperEl && window.Swiper) {
-      const totalEl = document.querySelector('.cinema-counter .total');
-      const currentEl = document.querySelector('.cinema-counter .current');
-      const progressEl = document.querySelector('.cinema-progress span');
-      const playBtn = document.querySelector('.cinema-play');
-      const fullBtn = document.querySelector('.cinema-fullscreen');
-
-      const swiper = new Swiper('.cinema-swiper', {
-        loop: true,
-        spaceBetween: 18,
-        speed: 900,
-        autoplay: {
-          delay: 3200,
-          disableOnInteraction: false,
+    const swiper = new Swiper('.cinema-swiper', {
+      slidesPerView: 1,
+      loop: true,
+      centeredSlides: true,
+      speed: 800,
+      watchOverflow: true,
+      navigation: {
+        nextEl: '.cinema-next',
+        prevEl: '.cinema-prev'
+      },
+      autoplay: {
+        delay: 3500,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true
+      },
+      on: {
+        init(sw) {
+          const realTotal = sw.slides.length - sw.loopedSlides * 2;
+          totalEl.textContent = String(realTotal).padStart(2, '0');
+          currentEl.textContent = String(sw.realIndex + 1).padStart(2, '0');
+          updateProgress(sw);
         },
-        navigation: {
-          nextEl: '.cinema-next',
-          prevEl: '.cinema-prev',
+        slideChange(sw) {
+          currentEl.textContent = String(sw.realIndex + 1).padStart(2, '0');
         },
-        on: {
-          init() {
-            if (totalEl) totalEl.textContent = String(this.slides.length - 2).padStart(2, '0');
-            if (currentEl) currentEl.textContent = '01';
-          },
-          slideChange() {
-            if (currentEl) currentEl.textContent = String(this.realIndex + 1).padStart(2, '0');
-          },
-          autoplayTimeLeft(s, time, progress) {
-            if (progressEl) progressEl.style.width = `${(1 - progress) * 100}%`;
-          }
+        progress(sw, progress) {
+          updateProgress(sw, progress);
+        },
+        autoplayTimeLeft(sw, time, progress) {
+          updateProgress(sw, 1 - progress);
         }
-      });
+      }
+    });
 
-      playBtn?.addEventListener('click', () => {
-        if (swiper.autoplay.running) {
-          swiper.autoplay.stop();
-          playBtn.classList.add('paused');
-        } else {
-          swiper.autoplay.start();
-          playBtn.classList.remove('paused');
-        }
-      });
-
-      fullBtn?.addEventListener('click', async () => {
-        const stage = document.getElementById('cinemaStage');
-        if (!document.fullscreenElement && stage?.requestFullscreen) {
-          await stage.requestFullscreen();
-        } else if (document.exitFullscreen) {
-          await document.exitFullscreen();
-        }
-      });
+    function updateProgress(sw, progressValue) {
+      const slidesCount = 22;
+      if (progressValue === undefined) {
+        const active = (sw.realIndex + 1) / slidesCount;
+        progressBar.style.width = `${Math.min(100, Math.max(0, active * 100))}%`;
+      } else {
+        progressBar.style.width = `${Math.min(100, Math.max(0, progressValue * 100))}%`;
+      }
     }
+
+    playBtn?.addEventListener('click', () => {
+      const isRunning = swiper.autoplay.running;
+      if (isRunning) {
+        swiper.autoplay.stop();
+        playBtn.classList.add('paused');
+        playBtn.setAttribute('aria-label', 'Slaytları oynat');
+        playBtn.lastElementChild.textContent = 'Oynat';
+      } else {
+        swiper.autoplay.start();
+        playBtn.classList.remove('paused');
+        playBtn.setAttribute('aria-label', 'Slaytları duraklat');
+        playBtn.lastElementChild.textContent = 'Duraklat';
+      }
+    });
+
+    fullscreenBtn?.addEventListener('click', async () => {
+      try {
+        if (document.fullscreenElement) {
+          await document.exitFullscreen();
+        } else if (stage?.requestFullscreen) {
+          await stage.requestFullscreen();
+        }
+      } catch (err) {
+        console.warn('Fullscreen could not be toggled:', err);
+      }
+    });
+
+    const lightbox = new PhotoSwipeLightbox({
+      gallery: '#galleryGrid',
+      children: 'a',
+      pswpModule: PhotoSwipe
+    });
+    lightbox.init();
+
+    const posterLightbox = new PhotoSwipeLightbox({
+      gallery: '#programGrid',
+      children: 'a',
+      pswpModule: PhotoSwipe
+    });
+    posterLightbox.init();
   </script>
 </body>
 </html>
