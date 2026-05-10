@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -553,7 +554,7 @@
     .cards-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0,1fr));
-      gap: 18px;
+      gap: 16px;
       margin-top: 28px;
     }
     .card {
@@ -629,7 +630,13 @@
       border: 1px solid rgba(15,142,125,.30);
     }
     .card-cta.ghost:hover { background: var(--accent-soft); }
-    .card-cta.disabled,
+    .card-cta.disabled {
+      background: rgba(15, 60, 47, .08);
+      color: rgba(19, 36, 29, .52);
+      border: 1px solid rgba(19, 36, 29, .12);
+      cursor: default;
+      pointer-events: none;
+    }
     .badge-soft {
       display: inline-flex;
       align-items: center;
@@ -643,13 +650,6 @@
       letter-spacing: .12em;
       text-transform: uppercase;
       border-radius: 999px;
-    }
-    .card-cta.disabled {
-      background: rgba(15, 60, 47, .08);
-      color: rgba(19, 36, 29, .52);
-      border: 1px solid rgba(19, 36, 29, .12);
-      cursor: default;
-      pointer-events: none;
     }
 
     .team-block { margin-top: 30px; }
@@ -793,20 +793,6 @@
       width: 100%;
       aspect-ratio: 16 / 9;
       max-height: 70vh;
-      overflow-x: auto;
-      overflow-y: hidden;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-    }
-    .cinema-swiper::-webkit-scrollbar { display: none; }
-    .cinema-swiper .swiper-wrapper {
-      display: flex;
-    }
-    .cinema-swiper .swiper-slide {
-      flex: 0 0 100%;
-      scroll-snap-align: center;
     }
     @media (max-width: 720px) {
       .cinema-swiper { aspect-ratio: 4 / 5; max-height: none; }
@@ -857,7 +843,7 @@
       display: grid;
       place-items: center;
       cursor: pointer;
-      z-index: 5;
+      z-index: 20;
       transition: background .25s ease, transform .25s ease, border-color .25s ease, opacity .25s ease;
     }
     .cinema-nav:hover {
@@ -1257,6 +1243,7 @@
         <div class="story">
           <div class="eyebrow">Arka Plan</div>
           <h2 class="section-title">Proje Hakkında</h2>
+          <p class="section-lead">Öğretmenlerin iklim değişikliğini sınıflarına taşıyabilmeleri için tasarlanan, araştırma temelli bir mesleki gelişim programı.</p>
 
           <p>Bu program, öğretmenlerin iklim değişikliği eğitimindeki yetkinliklerini artırmayı hedefleyen kapsamlı bir mesleki gelişim ve etkileşim platformudur. Katılımcıların öğretim süreçlerinde aktif rol aldığı, yenilikçi ve kapsayıcı öğrenme ortamları sunan yapılandırılmış bir eğitim modelini içermektedir.</p>
 
@@ -1394,6 +1381,7 @@
     <section class="panel reveal" id="team">
       <div class="container">
         <div class="eyebrow">Ekibimiz</div>
+        <h2 class="section-title">Ekip</h2>
 
         <div class="team-block">
           <h3 class="team-heading">Proje Ekibimiz</h3>
@@ -1581,8 +1569,6 @@
     </section>
   </main>
 
-  
-  
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
@@ -1621,8 +1607,6 @@
     </div>
   </footer>
 
-
-
   <script>
     const menuBtn = document.getElementById('menuBtn');
     const mobileNav = document.getElementById('mobileNav');
@@ -1654,31 +1638,30 @@
     revealEls.forEach(el => revealObserver.observe(el));
 
     const stage = document.getElementById('cinemaStage');
-    const galleryEl = document.querySelector('.cinema-swiper');
-    const slides = Array.from(document.querySelectorAll('.cinema-slide'));
     const currentEl = document.querySelector('.cinema-counter .current');
     const totalEl = document.querySelector('.cinema-counter .total');
     const progressBar = document.querySelector('.cinema-progress span');
     const playBtn = document.querySelector('.cinema-play');
     const fullscreenBtn = document.querySelector('.cinema-fullscreen');
+    const galleryEl = document.getElementById('galleryGrid');
+    const wrapper = galleryEl?.querySelector('.swiper-wrapper');
+    const slides = [...document.querySelectorAll('.cinema-slide')];
     const prevBtn = document.querySelector('.cinema-prev');
     const nextBtn = document.querySelector('.cinema-next');
 
-    const totalSlides = slides.length;
-    totalEl.textContent = String(totalSlides).padStart(2, '0');
+    const state = {
+      index: 0,
+      timer: null,
+      autoplay: true
+    };
 
-    let activeIndex = 0;
-    let autoplayTimer = null;
-    let swiperInstance = null;
-
-    function clampIndex(index) {
-      return (index + totalSlides) % totalSlides;
-    }
+    const clampIndex = (i) => (i + slides.length) % slides.length;
 
     function setCounter(index) {
-      activeIndex = clampIndex(index);
-      currentEl.textContent = String(activeIndex + 1).padStart(2, '0');
-      progressBar.style.width = `${Math.min(100, Math.max(0, ((activeIndex + 1) / totalSlides) * 100))}%`;
+      state.index = clampIndex(index);
+      if (currentEl) currentEl.textContent = String(state.index + 1).padStart(2, '0');
+      if (totalEl) totalEl.textContent = String(slides.length).padStart(2, '0');
+      if (progressBar) progressBar.style.width = `${((state.index + 1) / slides.length) * 100}%`;
     }
 
     function scrollSlideIntoView(index) {
@@ -1689,120 +1672,62 @@
       setCounter(index);
     }
 
-    function startFallbackAutoplay() {
-      stopFallbackAutoplay();
-      autoplayTimer = window.setInterval(() => {
-        goNext();
-      }, 3500);
-      playBtn?.classList.remove('paused');
-      if (playBtn) {
-        playBtn.setAttribute('aria-label', 'Slaytları duraklat');
-        const label = playBtn.querySelector('span:last-child');
-        if (label) label.textContent = 'Duraklat';
-      }
-    }
-
-    function stopFallbackAutoplay() {
-      if (autoplayTimer) {
-        window.clearInterval(autoplayTimer);
-        autoplayTimer = null;
-      }
-      playBtn?.classList.add('paused');
-      if (playBtn) {
-        playBtn.setAttribute('aria-label', 'Slaytları oynat');
-        const label = playBtn.querySelector('span:last-child');
-        if (label) label.textContent = 'Oynat';
-      }
+    function goNext() {
+      scrollSlideIntoView(state.index + 1);
     }
 
     function goPrev() {
-      if (swiperInstance) {
-        swiperInstance.slidePrev();
-      } else {
-        scrollSlideIntoView(activeIndex - 1);
-      }
+      scrollSlideIntoView(state.index - 1);
     }
 
-    function goNext() {
-      if (swiperInstance) {
-        swiperInstance.slideNext();
-      } else {
-        scrollSlideIntoView(activeIndex + 1);
-      }
-    }
+    prevBtn?.addEventListener('click', (e) => { e.preventDefault(); goPrev(); });
+    nextBtn?.addEventListener('click', (e) => { e.preventDefault(); goNext(); });
 
-    if (typeof window.Swiper !== 'undefined' && galleryEl) {
-      swiperInstance = new window.Swiper(galleryEl, {
-        slidesPerView: 1,
-        loop: true,
-        centeredSlides: true,
-        speed: 800,
-        watchOverflow: true,
-        navigation: {
-          nextEl: nextBtn,
-          prevEl: prevBtn
-        },
-        autoplay: {
-          delay: 3500,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true
-        },
-        on: {
-          init(sw) {
-            const realIndex = typeof sw.realIndex === 'number' ? sw.realIndex : 0;
-            setCounter(realIndex);
-          },
-          slideChange(sw) {
-            const realIndex = typeof sw.realIndex === 'number' ? sw.realIndex : 0;
-            setCounter(realIndex);
-          },
-          reachEnd(sw) {
-            const realIndex = typeof sw.realIndex === 'number' ? sw.realIndex : 0;
-            setCounter(realIndex);
-          }
-        }
+    slides.forEach((slide, idx) => {
+      const link = slide.querySelector('.cinema-link');
+      link?.addEventListener('click', (e) => {
+        e.preventDefault();
+        scrollSlideIntoView(idx);
       });
+    });
+
+    galleryEl?.addEventListener('scroll', () => {
+      const width = galleryEl.clientWidth || 1;
+      const index = Math.round(galleryEl.scrollLeft / width);
+      setCounter(index);
+    }, { passive: true });
+
+    // Fallback auto play using native scrolling if Swiper is unavailable.
+    function startAutoplay() {
+      if (state.timer) clearInterval(state.timer);
+      state.timer = setInterval(() => {
+        if (!state.autoplay) return;
+        goNext();
+      }, 3500);
+    }
+
+    function stopAutoplay() {
+      state.autoplay = false;
+      if (playBtn) {
+        playBtn.classList.add('paused');
+        playBtn.querySelector('.ico-pause')?.style && (playBtn.querySelector('.ico-pause').style.display = 'none');
+        playBtn.querySelector('.ico-play')?.style && (playBtn.querySelector('.ico-play').style.display = 'inline-flex');
+        playBtn.querySelector('span:last-child')?.replaceChildren(document.createTextNode('Oynat'));
+      }
+    }
+
+    function resumeAutoplay() {
+      state.autoplay = true;
       if (playBtn) {
         playBtn.classList.remove('paused');
-        playBtn.setAttribute('aria-label', 'Slaytları duraklat');
-        const label = playBtn.querySelector('span:last-child');
-        if (label) label.textContent = 'Duraklat';
+        playBtn.querySelector('.ico-pause')?.style && (playBtn.querySelector('.ico-pause').style.display = 'inline-flex');
+        playBtn.querySelector('.ico-play')?.style && (playBtn.querySelector('.ico-play').style.display = 'none');
+        playBtn.querySelector('span:last-child')?.replaceChildren(document.createTextNode('Duraklat'));
       }
-    } else {
-      // Native fallback: still works if Swiper asset fails to load.
-      setCounter(0);
-      startFallbackAutoplay();
-      galleryEl?.addEventListener('scroll', () => {
-        const width = galleryEl.clientWidth || 1;
-        const index = Math.round(galleryEl.scrollLeft / width);
-        setCounter(index);
-      }, { passive: true });
     }
 
-    prevBtn?.addEventListener('click', goPrev);
-    nextBtn?.addEventListener('click', goNext);
-
     playBtn?.addEventListener('click', () => {
-      if (swiperInstance) {
-        const running = swiperInstance.autoplay?.running;
-        if (running) {
-          swiperInstance.autoplay.stop();
-          playBtn.classList.add('paused');
-          playBtn.setAttribute('aria-label', 'Slaytları oynat');
-          const label = playBtn.querySelector('span:last-child');
-          if (label) label.textContent = 'Oynat';
-        } else {
-          swiperInstance.autoplay.start();
-          playBtn.classList.remove('paused');
-          playBtn.setAttribute('aria-label', 'Slaytları duraklat');
-          const label = playBtn.querySelector('span:last-child');
-          if (label) label.textContent = 'Duraklat';
-        }
-      } else if (autoplayTimer) {
-        stopFallbackAutoplay();
-      } else {
-        startFallbackAutoplay();
-      }
+      if (state.autoplay) stopAutoplay(); else resumeAutoplay();
     });
 
     fullscreenBtn?.addEventListener('click', async () => {
@@ -1817,21 +1742,69 @@
       }
     });
 
-    if (typeof window.PhotoSwipeLightbox !== 'undefined' && typeof window.PhotoSwipe !== 'undefined') {
-      const lightbox = new window.PhotoSwipeLightbox({
+    // Try to initialize Swiper if it exists, but keep native fallback if it does not.
+    if (window.Swiper && galleryEl) {
+      const swiper = new Swiper(galleryEl, {
+        slidesPerView: 1,
+        spaceBetween: 0,
+        loop: true,
+        centeredSlides: true,
+        speed: 800,
+        watchOverflow: true,
+        navigation: {
+          nextEl: '.cinema-next',
+          prevEl: '.cinema-prev'
+        },
+        autoplay: {
+          delay: 3500,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true
+        },
+        on: {
+          init(sw) {
+            const realTotal = sw.slides.length - sw.loopedSlides * 2;
+            if (totalEl) totalEl.textContent = String(realTotal || slides.length).padStart(2, '0');
+            if (currentEl) currentEl.textContent = String(sw.realIndex + 1).padStart(2, '0');
+            if (progressBar) progressBar.style.width = `${((sw.realIndex + 1) / slides.length) * 100}%`;
+          },
+          slideChange(sw) {
+            if (currentEl) currentEl.textContent = String(sw.realIndex + 1).padStart(2, '0');
+            if (progressBar) progressBar.style.width = `${((sw.realIndex + 1) / slides.length) * 100}%`;
+          }
+        }
+      });
+
+      playBtn?.addEventListener('click', () => {
+        if (swiper.autoplay?.running) {
+          swiper.autoplay.stop();
+        } else {
+          swiper.autoplay?.start();
+        }
+      });
+    } else {
+      setCounter(0);
+      startAutoplay();
+    }
+
+    // PhotoSwipe if available.
+    if (window.PhotoSwipeLightbox && window.PhotoSwipe) {
+      const lightbox = new PhotoSwipeLightbox({
         gallery: '#galleryGrid',
         children: 'a',
-        pswpModule: window.PhotoSwipe
+        pswpModule: PhotoSwipe
       });
       lightbox.init();
 
-      const posterLightbox = new window.PhotoSwipeLightbox({
+      const posterLightbox = new PhotoSwipeLightbox({
         gallery: '#programGrid',
         children: 'a',
-        pswpModule: window.PhotoSwipe
+        pswpModule: PhotoSwipe
       });
       posterLightbox.init();
     }
+
+    setCounter(0);
   </script>
 </body>
 </html>
+```
