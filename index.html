@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+  <script>
+    (function(){
+      try {
+        var saved = localStorage.getItem('theme');
+        var systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = saved || (systemDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0f3c2f" />
@@ -114,6 +124,189 @@
       --radius-sm: 16px;
       --max: 1180px;
       --pad: clamp(18px, 4vw, 72px);
+      --topbar-bg: rgba(255,255,255,.94);
+      --topbar-bg-scrolled: rgba(255,255,255,.98);
+      --panel-alt-bg: #fafaf8;
+      --section-title-color: #122821;
+      --logo-odtu-header: url("odtu.png");
+      color-scheme: light;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0a1612;
+      --paper: #142e25;
+      --ink: #e8ece6;
+      --text: #c5d3cc;
+      --muted: #95a89e;
+      --line: rgba(255, 255, 255, 0.10);
+      --accent: #18b8a6;
+      --accent-bright: #5fe5d4;
+      --accent-soft: rgba(24, 184, 166, 0.12);
+      --shadow: 0 16px 42px rgba(0, 0, 0, 0.5);
+      --topbar-bg: rgba(10, 22, 18, 0.82);
+      --topbar-bg-scrolled: rgba(10, 22, 18, 0.95);
+      --panel-alt-bg: #0d211b;
+      --section-title-color: var(--ink);
+      --logo-odtu-header: url("files/odtu-white-logo.png");
+      color-scheme: dark;
+    }
+
+    /* Dark mode overrides */
+    [data-theme="dark"] body { background: var(--bg); color: var(--ink); }
+    [data-theme="dark"] .topbar { background: var(--topbar-bg); border-bottom-color: rgba(255,255,255,.06); }
+    [data-theme="dark"] .topbar.scrolled { background: var(--topbar-bg-scrolled); box-shadow: 0 10px 30px rgba(0,0,0,.4); }
+    [data-theme="dark"] .brand-text { color: var(--ink); }
+    [data-theme="dark"] .nav a { color: var(--text); }
+    [data-theme="dark"] .nav a:hover, [data-theme="dark"] .nav a:focus-visible { color: var(--accent-bright); }
+    [data-theme="dark"] .menu-btn { color: var(--ink); }
+    [data-theme="dark"] .menu-btn:hover { background: rgba(255,255,255,.06); }
+    [data-theme="dark"] .mobile-nav { background: rgba(10,22,18,.98); border-bottom-color: rgba(255,255,255,.06); }
+    [data-theme="dark"] .mobile-nav a { color: var(--text); border-bottom-color: rgba(255,255,255,.06); }
+    [data-theme="dark"] .mobile-nav a:focus-visible { color: var(--accent-bright); }
+    [data-theme="dark"] .partner { border-left-color: rgba(255,255,255,.12); }
+
+    /* Header ODTÜ logo swap (light → white in dark) */
+    .partner .logo-dark { display: none; }
+    [data-theme="dark"] .partner .logo-light { display: none; }
+    [data-theme="dark"] .partner .logo-dark { display: block; }
+    [data-theme="dark"] .partner {
+      border-left-color: rgba(255,255,255,.12);
+    }
+
+    [data-theme="dark"] .panel.alt { background: var(--panel-alt-bg); }
+    [data-theme="dark"] .section-title { color: var(--section-title-color); }
+    [data-theme="dark"] p { color: var(--text); }
+
+    /* Cards (about info, outputs, team, contact) */
+    [data-theme="dark"] .info-card,
+    [data-theme="dark"] .card,
+    [data-theme="dark"] .team-card,
+    [data-theme="dark"] .contact-box,
+    [data-theme="dark"] .contact-card,
+    [data-theme="dark"] .contact-side {
+      background: var(--paper);
+      border-color: var(--line);
+    }
+    [data-theme="dark"] .card h3,
+    [data-theme="dark"] .info-item h3,
+    [data-theme="dark"] .team-card h3,
+    [data-theme="dark"] .contact-box h3 { color: var(--ink); }
+    [data-theme="dark"] .info-item p,
+    [data-theme="dark"] .team-card p,
+    [data-theme="dark"] .card p { color: var(--text); }
+
+    /* Output card CTA pills */
+    [data-theme="dark"] .card-cta { background: var(--accent); color: #07211a; }
+    [data-theme="dark"] .card-cta:hover { background: var(--accent-bright); }
+    [data-theme="dark"] .card-cta.ghost,
+    [data-theme="dark"] .card-cta.disabled {
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.72);
+      border: 1px solid rgba(255,255,255,.22);
+    }
+
+    /* Tag chips ("Sürdürülebilir Kalkınma · Çevre Okuryazarlığı" etc.) */
+    [data-theme="dark"] .team-tags span,
+    [data-theme="dark"] .chip,
+    [data-theme="dark"] .team-tag {
+      background: var(--accent-soft);
+      color: var(--accent-bright);
+    }
+
+    /* Team section dark mode text colors */
+    [data-theme="dark"] .team-heading { color: var(--ink); }
+    [data-theme="dark"] .team-name { color: var(--ink); }
+    [data-theme="dark"] .team-role { color: var(--accent-bright); }
+
+    /* Language badge for cards (e.g. PDF in Turkish) */
+    .lang-badge {
+      margin-left: auto;
+      align-self: center;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid rgba(15,142,125,.2);
+      white-space: nowrap;
+      flex: none;
+    }
+    [data-theme="dark"] .lang-badge {
+      color: var(--accent-bright);
+      background: rgba(24,184,166,.12);
+      border-color: rgba(95,229,212,.25);
+    }
+
+    /* Contact section dark adaptation */
+    [data-theme="dark"] .contact-note { background: rgba(24,184,166,.10); color: var(--text); }
+    [data-theme="dark"] .contact-label { color: var(--accent-bright); }
+    [data-theme="dark"] .contact-email { color: var(--accent-bright); }
+
+    /* Eyebrows on light panels — switch to brighter accent in dark */
+    [data-theme="dark"] .eyebrow { color: var(--accent-bright); }
+    [data-theme="dark"] .eyebrow::before { background: rgba(95, 229, 212, .55); }
+
+    /* Footer (already dark; soften adjustments) */
+    [data-theme="dark"] .footer { background: #06120e; }
+    [data-theme="dark"] .footer-logo-row strong { color: #edf4f1; }
+
+    /* Header controls (theme + language toggles) */
+    .header-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex: none;
+    }
+    .theme-toggle, .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 38px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+      transition: background .2s ease, color .2s ease, border-color .2s ease;
+      padding: 0;
+    }
+    .theme-toggle { width: 38px; }
+    .lang-toggle {
+      padding: 0 14px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+    .theme-toggle:hover, .lang-toggle:hover {
+      background: rgba(15,142,125,.08);
+      color: var(--accent);
+      border-color: rgba(15,142,125,.30);
+    }
+    .theme-toggle svg { width: 18px; height: 18px; display: block; }
+    .theme-toggle .ico-moon { display: none; }
+    [data-theme="dark"] .theme-toggle,
+    [data-theme="dark"] .lang-toggle {
+      border-color: rgba(255,255,255,.18);
+      color: var(--ink);
+    }
+    [data-theme="dark"] .theme-toggle:hover,
+    [data-theme="dark"] .lang-toggle:hover {
+      background: rgba(255,255,255,.08);
+      color: var(--accent-bright);
+      border-color: rgba(255,255,255,.32);
+    }
+    [data-theme="dark"] .theme-toggle .ico-sun { display: none; }
+    [data-theme="dark"] .theme-toggle .ico-moon { display: block; }
+    @media (max-width: 920px) {
+      .lang-toggle { padding: 0 10px; font-size: 11px; }
+      .theme-toggle, .lang-toggle { height: 34px; }
+      .theme-toggle { width: 34px; }
+    }
+    @media (max-width: 720px) {
+      .header-controls { gap: 6px; }
     }
 
     *, *::before, *::after { box-sizing: border-box; }
@@ -286,8 +479,8 @@
       pointer-events: none;
     }
     .partner img {
-      width: 240px;
-      max-width: 30vw;
+      width: 340px;
+      max-width: 36vw;
       object-fit: contain;
     }
 
@@ -1211,11 +1404,13 @@
       line-height:1.2;
     }
     .footer-logo-mark{
-      margin-top:14px;
-      max-width:320px;
+      display: block;
+      margin: 14px 0 0 0;
+      max-width: 320px;
       width: 100%;
       height: auto;
       object-fit: contain;
+      object-position: left center;
     }
     .footer-title{
       margin:0 0 14px;
@@ -1327,17 +1522,28 @@
       </a>
 
       <nav class="nav" aria-label="Ana menü">
-        <a href="#about">Hakkında</a>
-        <a href="#purpose">Amaç</a>
-        <a href="#program">Program</a>
-        <a href="#outputs">Çıktılar</a>
-        <a href="#team">Ekip</a>
-        <a href="#gallery">Galeri</a>
-        <a href="#contact">İletişim</a>
+        <a href="#about" data-i18n="nav.about">Hakkında</a>
+        <a href="#purpose" data-i18n="nav.purpose">Amaç</a>
+        <a href="#program" data-i18n="nav.program">Program</a>
+        <a href="#outputs" data-i18n="nav.outputs">Çıktılar</a>
+        <a href="#team" data-i18n="nav.team">Ekip</a>
+        <a href="#gallery" data-i18n="nav.gallery">Galeri</a>
+        <a href="#contact" data-i18n="nav.contact">İletişim</a>
       </nav>
 
+      <div class="header-controls">
+        <button class="lang-toggle" id="langToggle" type="button" aria-label="Dili değiştir">
+          <span class="lang-current">TR</span>
+        </button>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Tema değiştir">
+          <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+
       <div class="partner" aria-label="Yürütücü kurum">
-        <img src="odtu.png" alt="ODTÜ">
+        <img class="logo-light" src="odtu.png" alt="ODTÜ">
+        <img class="logo-dark" src="files/odtu-white-logo.png" alt="ODTÜ">
       </div>
 
       <button class="menu-btn" id="menuBtn" aria-label="Menüyü aç/kapat" aria-expanded="false" aria-controls="mobileNav">
@@ -1348,13 +1554,13 @@
     </div>
 
     <div class="container mobile-nav" id="mobileNav">
-      <a href="#about">Hakkında</a>
-      <a href="#purpose">Amaç</a>
-      <a href="#program">Program</a>
-      <a href="#outputs">Çıktılar</a>
-      <a href="#team">Ekip</a>
-      <a href="#gallery">Galeri</a>
-      <a href="#contact">İletişim</a>
+      <a href="#about" data-i18n="nav.about">Hakkında</a>
+      <a href="#purpose" data-i18n="nav.purpose">Amaç</a>
+      <a href="#program" data-i18n="nav.program">Program</a>
+      <a href="#outputs" data-i18n="nav.outputs">Çıktılar</a>
+      <a href="#team" data-i18n="nav.team">Ekip</a>
+      <a href="#gallery" data-i18n="nav.gallery">Galeri</a>
+      <a href="#contact" data-i18n="nav.contact">İletişim</a>
     </div>
   </header>
 
@@ -1362,16 +1568,16 @@
     <section class="hero" id="hero">
       <div class="container hero-grid">
         <div>
-          <span class="hero-kicker">ODTÜ Eğitim Fakültesi · BAP Tez-D 11858</span>
-          <h1>İklim için Değişen<br>ve Dönüştüren <em>Öğretmenler</em></h1>
-          <p class="hero-lead">Hizmet içi öğretmenlerin iklim değişikliğini öğretme konusundaki yetkinliklerini güçlendirmek amacıyla hazırlanmış iş birliğine dayalı bir mesleki gelişim programıdır.</p>
+          <span class="hero-kicker" data-i18n="hero.kicker">ODTÜ Eğitim Fakültesi · BAP Tez-D 11858</span>
+          <h1 data-i18n="hero.title" data-i18n-html>İklim için Değişen<br>ve Dönüştüren <em>Öğretmenler</em></h1>
+          <p class="hero-lead" data-i18n="hero.lead">Hizmet içi öğretmenlerin iklim değişikliğini öğretme konusundaki yetkinliklerini güçlendirmek amacıyla hazırlanmış iş birliğine dayalı bir mesleki gelişim programıdır.</p>
 
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#about">Projeyi İncele →</a>
-            <a class="btn btn-secondary" href="#outputs">Çıktılara Göz At</a>
+            <a class="btn btn-primary" href="#about" data-i18n="hero.cta.primary">Projeyi İncele →</a>
+            <a class="btn btn-secondary" href="#outputs" data-i18n="hero.cta.secondary">Çıktılara Göz At</a>
           </div>
 
-          <div class="hero-note" style="margin-top:14px;font-size:.92rem;color:rgba(255,255,255,.72);line-height:1.65;max-width:720px;">
+          <div class="hero-note" style="margin-top:14px;font-size:.92rem;color:rgba(255,255,255,.72);line-height:1.65;max-width:720px;" data-i18n="hero.note">
             Bu araştırma, Orta Doğu Teknik Üniversitesi İnsan Araştırmaları Etik Kurulu tarafından “0488-ODTÜİAEK-2025” protokol numarası ile onaylanmış olup, araştırmanın uygulama izni T.C. Millî Eğitim Bakanlığı tarafından “MEB.TT.2026.045114.02” numarası ile verilmiştir.
           </div>
         </div>
@@ -1387,46 +1593,46 @@
     <section class="panel reveal" id="about">
       <div class="container two-col">
         <div class="story">
-          <div class="eyebrow">Arka Plan</div>
-          <h2 class="section-title">Proje Hakkında</h2>
+          <div class="eyebrow" data-i18n="about.eyebrow">Arka Plan</div>
+          <h2 class="section-title" data-i18n="about.title">Proje Hakkında</h2>
 
-          <p>Bu program, öğretmenlerin iklim değişikliği eğitimindeki yetkinliklerini artırmayı hedefleyen kapsamlı bir mesleki gelişim ve etkileşim platformudur. Katılımcıların öğretim süreçlerinde aktif rol aldığı, yenilikçi ve kapsayıcı öğrenme ortamları sunan yapılandırılmış bir eğitim modelini içermektedir.</p>
+          <p data-i18n="about.p1">Bu program, öğretmenlerin iklim değişikliği eğitimindeki yetkinliklerini artırmayı hedefleyen kapsamlı bir mesleki gelişim ve etkileşim platformudur. Katılımcıların öğretim süreçlerinde aktif rol aldığı, yenilikçi ve kapsayıcı öğrenme ortamları sunan yapılandırılmış bir eğitim modelini içermektedir.</p>
 
-          <p>Ankara ilinde aktif görev yapan ortaokul öğretmenleriyle iş birliği içinde tasarlanan eğitim modeli, öğretmenlerin sınıf içindeki gerçek ihtiyaçları göz önünde bulundurularak geliştirilmiş ve uygulanmıştır.</p>
+          <p data-i18n="about.p2">Ankara ilinde aktif görev yapan ortaokul öğretmenleriyle iş birliği içinde tasarlanan eğitim modeli, öğretmenlerin sınıf içindeki gerçek ihtiyaçları göz önünde bulundurularak geliştirilmiş ve uygulanmıştır.</p>
 
-          <p>Temel amaç, öğretmenleri salt iklim değişikliği bilgilerini aktarmanın ötesinde, bu konuyu dönüştürücü ve öğrenci merkezli bir stratejiyle ele almalarını sağlayacak pedagojik gelişimleriyle donatmaktır.</p>
+          <p data-i18n="about.p3">Temel amaç, öğretmenleri salt iklim değişikliği bilgilerini aktarmanın ötesinde, bu konuyu dönüştürücü ve öğrenci merkezli bir stratejiyle ele almalarını sağlayacak pedagojik gelişimleriyle donatmaktır.</p>
         </div>
 
         <aside class="info-card reveal">
           <div class="info-item">
             <div class="info-icon" aria-hidden="true">🎓</div>
             <div>
-              <h3>Doktora Tez Projesi</h3>
-              <p>Prof. Dr. Elvan Şahin &amp; Arş. Gör. Ceren Başer Kanbak<br>Bu program, danışmanlığını Prof. Dr. Elvan Şahin’in yürüttüğü ve doktora öğrencisi Ceren Başer Kanbak tarafından hazırlanan bir doktora tez çalışmasının bir parçasıdır.</p>
+              <h3 data-i18n="about.card1.title">Doktora Tez Projesi</h3>
+              <p data-i18n="about.card1.body" data-i18n-html>Prof. Dr. Elvan Şahin &amp; Arş. Gör. Ceren Başer Kanbak<br>Bu program, danışmanlığını Prof. Dr. Elvan Şahin’in yürüttüğü ve doktora öğrencisi Ceren Başer Kanbak tarafından hazırlanan bir doktora tez çalışmasının bir parçasıdır.</p>
             </div>
           </div>
 
           <div class="info-item">
             <div class="info-icon" aria-hidden="true">🤝</div>
             <div>
-              <h3>Hizmet İçi Öğretmen Katılımı</h3>
-              <p>Ankara ilinde görev yapmakta olan öğretmenler ile iş birliği içinde uygulanmıştır.</p>
+              <h3 data-i18n="about.card2.title">Hizmet İçi Öğretmen Katılımı</h3>
+              <p data-i18n="about.card2.body">Ankara ilinde görev yapmakta olan öğretmenler ile iş birliği içinde uygulanmıştır.</p>
             </div>
           </div>
 
           <div class="info-item">
             <div class="info-icon" aria-hidden="true">🏛️</div>
             <div>
-              <h3>ODTÜ BAP Desteği</h3>
-              <p>Üniversitenin Bilimsel Araştırma Projeleri (BAP) birimi tarafından BAP Tez-D kapsamında 11858 proje numarasıyla desteklenmektedir.</p>
+              <h3 data-i18n="about.card3.title">ODTÜ BAP Desteği</h3>
+              <p data-i18n="about.card3.body">Üniversitenin Bilimsel Araştırma Projeleri (BAP) birimi tarafından BAP Tez-D kapsamında 11858 proje numarasıyla desteklenmektedir.</p>
             </div>
           </div>
 
           <div class="info-item">
             <div class="info-icon" aria-hidden="true">🌱</div>
             <div>
-              <h3>İklim Değişikliği Eğitimi</h3>
-              <p>Bilgi aktarımının ötesine geçerek iklim değişikliği eğitimini desteklemek amacıyla dönüştürücü pedagojilerle güçlendirilmiş bir eğitimdir.</p>
+              <h3 data-i18n="about.card4.title">İklim Değişikliği Eğitimi</h3>
+              <p data-i18n="about.card4.body">Bilgi aktarımının ötesine geçerek iklim değişikliği eğitimini desteklemek amacıyla dönüştürücü pedagojilerle güçlendirilmiş bir eğitimdir.</p>
             </div>
           </div>
         </aside>
@@ -1435,22 +1641,22 @@
 
     <section class="panel alt reveal" id="purpose">
       <div class="container purpose-wrap">
-        <div class="eyebrow">Odak ve Yönelim</div>
-        <h2 class="section-title">Amaç</h2>
-        <p class="section-lead">Projenin temel amacı, öğretmenlerin karmaşık ve multidisipliner bir yapıya sahip iklim değişikliği konusunu öğretirken karşılaştıkları kavramsal, pedagojik ve sistemsel zorlukların üstesinden gelmelerini desteklemektir.</p>
+        <div class="eyebrow" data-i18n="purpose.eyebrow">Odak ve Yönelim</div>
+        <h2 class="section-title" data-i18n="purpose.title">Amaç</h2>
+        <p class="section-lead" data-i18n="purpose.lead">Projenin temel amacı, öğretmenlerin karmaşık ve multidisipliner bir yapıya sahip iklim değişikliği konusunu öğretirken karşılaştıkları kavramsal, pedagojik ve sistemsel zorlukların üstesinden gelmelerini desteklemektir.</p>
 
         <div style="height:24px"></div>
 
-        <p>Bu amaç doğrultusunda, sınıf içi uygulamalarda salt bilgi aktarımına dayalı geleneksel yöntemler yerine, öğrenciyi aktif kılan ve sorgulamaya teşvik eden öğrenci merkezli, dönüştürücü öğretim stratejilerinin güçlendirilmesi hedeflenmektedir. Eğitimin yalnızca farkındalık yaratmanın ötesine geçerek davranışsal bir değişime ilham vermesi, projenin temel pedagojik yaklaşımını oluşturmaktadır.</p>
+        <p data-i18n="purpose.p1">Bu amaç doğrultusunda, sınıf içi uygulamalarda salt bilgi aktarımına dayalı geleneksel yöntemler yerine, öğrenciyi aktif kılan ve sorgulamaya teşvik eden öğrenci merkezli, dönüştürücü öğretim stratejilerinin güçlendirilmesi hedeflenmektedir. Eğitimin yalnızca farkındalık yaratmanın ötesine geçerek davranışsal bir değişime ilham vermesi, projenin temel pedagojik yaklaşımını oluşturmaktadır.</p>
 
-        <p>Katılımcıların iklim okuryazarlığını desteklemek üzere tasarlanmış aktif ve etkileşimli öğrenme ortamları aracılığıyla, öğretmenlerin alan bilgisi, pedagojik yetkinlikleri ve öğretim sürecine dair motivasyonları ile isteklilikleri artırılmaktadır.</p>
+        <p data-i18n="purpose.p2">Katılımcıların iklim okuryazarlığını desteklemek üzere tasarlanmış aktif ve etkileşimli öğrenme ortamları aracılığıyla, öğretmenlerin alan bilgisi, pedagojik yetkinlikleri ve öğretim sürecine dair motivasyonları ile isteklilikleri artırılmaktadır.</p>
       </div>
     </section>
 
     <section class="panel program-dark reveal" id="program">
       <div class="container">
-        <div class="eyebrow on-dark">Program</div>
-        <h2 class="section-title">Program Akışı</h2>
+        <div class="eyebrow on-dark" data-i18n="program.eyebrow">Program</div>
+        <h2 class="section-title" data-i18n="program.title">Program Akışı</h2>
 
         <div class="program-posters" id="programGrid">
           <div class="poster"><button class="poster-fs-btn" type="button" aria-label="Tam ekran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button><button class="poster-fs-close" type="button" aria-label="Tam ekrandan çık"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
@@ -1471,52 +1677,53 @@
 
     <section class="panel alt reveal" id="outputs">
       <div class="container">
-        <div class="eyebrow">Kaynak Merkezi</div>
-        <h2 class="section-title">Proje Çıktıları</h2>
-        <p class="section-lead">Araştırma sürecinde üretilen materyaller belgelenmiş ve erişime hazır hâle getirilmiştir.</p>
+        <div class="eyebrow" data-i18n="outputs.eyebrow">Kaynak Merkezi</div>
+        <h2 class="section-title" data-i18n="outputs.title">Proje Çıktıları</h2>
+        <p class="section-lead" data-i18n="outputs.lead">Araştırma sürecinde üretilen materyaller belgelenmiş ve erişime hazır hâle getirilmiştir.</p>
 
         <div class="cards-grid">
           <article class="card reveal">
             <div class="card-top">
               <div class="ico" aria-hidden="true">📘</div>
-              <h3>Öğretmen El Kitapçığı · Önizleme</h3>
+              <h3 data-i18n="outputs.card1.title">Öğretmen El Kitapçığı · Önizleme</h3>
+              <span class="lang-badge" data-i18n="outputs.card1.lang">Türkçe</span>
             </div>
-            <p>Bu PDF, öğretmen el kitapçığının önizleme sürümüdür. Program kapsamında geliştirilen içerik ve etkinliklerin seçilmiş bir derlemesini sunmaktadır.</p>
+            <p data-i18n="outputs.card1.body">Bu PDF, öğretmen el kitapçığının önizleme sürümüdür. Program kapsamında geliştirilen içerik ve etkinliklerin seçilmiş bir derlemesini sunmaktadır.</p>
             <div class="card-footer">
-              <a class="card-cta" href="files/ogretmenelkitabi.pdf" target="_blank" rel="noopener">PDF İndir</a>
+              <a class="card-cta" href="files/ogretmenelkitabi.pdf" target="_blank" rel="noopener" data-i18n="outputs.card1.cta">PDF İndir</a>
             </div>
           </article>
 
           <article class="card reveal">
             <div class="card-top">
               <div class="ico" aria-hidden="true">📗</div>
-              <h3>Öğretmen El Kitabı</h3>
+              <h3 data-i18n="outputs.card2.title">Öğretmen El Kitabı</h3>
             </div>
-            <p>Program sürecinde üretilen içeriklerin bütüncül biçimde derleneceği öğretmen el kitabı; oturum akışı, uygulama notları ve seçili çıktılar için akademik bir özet sunacaktır.</p>
+            <p data-i18n="outputs.card2.body">Program sürecinde üretilen içeriklerin bütüncül biçimde derleneceği öğretmen el kitabı; oturum akışı, uygulama notları ve seçili çıktılar için akademik bir özet sunacaktır.</p>
             <div class="card-footer">
-              <span class="card-cta disabled" aria-disabled="true">Yakında</span>
+              <span class="card-cta disabled" aria-disabled="true" data-i18n="outputs.soon">Yakında</span>
             </div>
           </article>
 
           <article class="card reveal">
             <div class="card-top">
               <div class="ico" aria-hidden="true">🖼️</div>
-              <h3>Sınıf İçi Uygulama Örnekleri</h3>
+              <h3 data-i18n="outputs.card3.title">Sınıf İçi Uygulama Örnekleri</h3>
             </div>
-            <p>Öğretmenlerimizin sınıf içi uygulamalarından örnek paylaşımlar.</p>
+            <p data-i18n="outputs.card3.body">Öğretmenlerimizin sınıf içi uygulamalarından örnek paylaşımlar.</p>
             <div class="card-footer">
-              <span class="card-cta disabled" aria-disabled="true">Yakında</span>
+              <span class="card-cta disabled" aria-disabled="true" data-i18n="outputs.soon">Yakında</span>
             </div>
           </article>
 
           <article class="card reveal">
             <div class="card-top">
               <div class="ico" aria-hidden="true">📄</div>
-              <h3>Araştırma Raporları</h3>
+              <h3 data-i18n="outputs.card4.title">Araştırma Raporları</h3>
             </div>
-            <p>Akademik paylaşımlar.</p>
+            <p data-i18n="outputs.card4.body">Akademik paylaşımlar.</p>
             <div class="card-footer">
-              <span class="card-cta disabled" aria-disabled="true">Yakında</span>
+              <span class="card-cta disabled" aria-disabled="true" data-i18n="outputs.soon">Yakında</span>
             </div>
           </article>
         </div>
@@ -1525,10 +1732,10 @@
 
     <section class="panel reveal" id="team">
       <div class="container">
-        <div class="eyebrow">Ekibimiz</div>
+        <div class="eyebrow" data-i18n="team.eyebrow">Ekibimiz</div>
 
         <div class="team-block">
-          <h3 class="team-heading">Proje Ekibimiz</h3>
+          <h3 class="team-heading" data-i18n="team.title">Proje Ekibimiz</h3>
           <div class="team-grid team-grid-project">
             <article class="team-card reveal">
               <div class="team-top">
@@ -1536,13 +1743,13 @@
                   <img src="files/team/elvan.jpeg" alt="Prof. Dr. Elvan Şahin" loading="lazy">
                 </div>
                 <div class="team-copy">
-                  <h4 class="team-name">Prof. Dr. Elvan Şahin</h4>
-                  <p class="team-role">Proje Yürütücüsü</p>
-                  <p class="team-affiliation">ODTÜ Matematik ve Fen Bilimleri Eğitimi Bölümü</p>
+                  <h4 class="team-name" data-i18n="team.elvan.name">Prof. Dr. Elvan Şahin</h4>
+                  <p class="team-role" data-i18n="team.elvan.role">Proje Yürütücüsü</p>
+                  <p class="team-affiliation" data-i18n="team.elvan.affil">ODTÜ Matematik ve Fen Bilimleri Eğitimi Bölümü</p>
                 </div>
               </div>
-              <p class="team-bio">Orta Doğu Teknik Üniversitesi Matematik ve Fen Bilimleri Eğitimi Bölümü öğretim üyesidir. Fen eğitimi alanında doktora (2008) ve yüksek lisans (2005), kimya eğitimi alanında lisans (2002) derecelerine sahiptir. Başlıca araştırma alanları sürdürülebilir kalkınma için eğitim ve çevre okuryazarlığıdır.</p>
-              <span class="team-tag">Sürdürülebilir Kalkınma · Çevre Okuryazarlığı</span>
+              <p class="team-bio" data-i18n="team.elvan.bio">Orta Doğu Teknik Üniversitesi Matematik ve Fen Bilimleri Eğitimi Bölümü öğretim üyesidir. Fen eğitimi alanında doktora (2008) ve yüksek lisans (2005), kimya eğitimi alanında lisans (2002) derecelerine sahiptir. Başlıca araştırma alanları sürdürülebilir kalkınma için eğitim ve çevre okuryazarlığıdır.</p>
+              <span class="team-tag" data-i18n="team.elvan.tag">Sürdürülebilir Kalkınma · Çevre Okuryazarlığı</span>
             </article>
 
             <article class="team-card reveal">
@@ -1551,19 +1758,19 @@
                   <img src="files/team/ceren.jpg" alt="Arş. Gör. Ceren Başer Kanbak" loading="lazy">
                 </div>
                 <div class="team-copy">
-                  <h4 class="team-name">Arş. Gör. Ceren Başer Kanbak</h4>
-                  <p class="team-role">Doktora Öğrencisi · Araştırma Görevlisi</p>
-                  <p class="team-affiliation">ODTÜ Matematik ve Fen Bilimleri Eğitimi Bölümü</p>
+                  <h4 class="team-name" data-i18n="team.ceren.name">Arş. Gör. Ceren Başer Kanbak</h4>
+                  <p class="team-role" data-i18n="team.ceren.role">Doktora Öğrencisi · Araştırma Görevlisi</p>
+                  <p class="team-affiliation" data-i18n="team.ceren.affil">ODTÜ Matematik ve Fen Bilimleri Eğitimi Bölümü</p>
                 </div>
               </div>
-              <p class="team-bio">ODTÜ Matematik ve Fen Bilimleri Eğitimi Bölümü'nde araştırma görevlisi ve doktora öğrencisidir. Aynı bölümden lisans (2018) ve yüksek lisans (2021) derecelerine sahiptir. Başlıca araştırma alanları sürdürülebilir kalkınma için eğitim, iklim değişikliği eğitimi ve insan-çevre ilişkisidir.</p>
-              <span class="team-tag">İklim Değişikliği Eğitimi · İnsan-Çevre İlişkisi</span>
+              <p class="team-bio" data-i18n="team.ceren.bio">ODTÜ Matematik ve Fen Bilimleri Eğitimi Bölümü'nde araştırma görevlisi ve doktora öğrencisidir. Aynı bölümden lisans (2018) ve yüksek lisans (2021) derecelerine sahiptir. Başlıca araştırma alanları sürdürülebilir kalkınma için eğitim, iklim değişikliği eğitimi ve insan-çevre ilişkisidir.</p>
+              <span class="team-tag" data-i18n="team.ceren.tag">İklim Değişikliği Eğitimi · İnsan-Çevre İlişkisi</span>
             </article>
           </div>
         </div>
 
         <div class="team-block">
-          <h3 class="team-heading">Konuk Eğitmenler</h3>
+          <h3 class="team-heading" data-i18n="team.guest.title">Konuk Eğitmenler</h3>
           <div class="team-grid team-grid-mentors">
             <article class="team-card reveal">
               <div class="team-top center">
@@ -1571,13 +1778,13 @@
                   <img src="files/team/guliz.jpeg" alt="Doç. Dr. Güliz Karaarslan Semiz" loading="lazy">
                 </div>
                 <div class="team-copy">
-                  <h4 class="team-name">Doç. Dr. Güliz Karaarslan Semiz</h4>
-                  <p class="team-role">Konuk Eğitmen</p>
-                  <p class="team-affiliation">Vechta Üniversitesi, Almanya</p>
+                  <h4 class="team-name" data-i18n="team.guliz.name">Doç. Dr. Güliz Karaarslan Semiz</h4>
+                  <p class="team-role" data-i18n="team.guest.role">Konuk Eğitmen</p>
+                  <p class="team-affiliation" data-i18n="team.guliz.affil">Vechta Üniversitesi, Almanya</p>
                 </div>
               </div>
-              <p class="team-bio">2016'da ODTÜ Fen Bilimleri Eğitimi'nde Sürdürülebilir Kalkınma için Eğitim kapsamında Sistemsel Düşünce Becerileri konusunda doktorasını tamamladı. İlköğretim seviyesi sürdürülebilir kalkınma için eğitim ve iklim değişikliği eğitimi alanlarında çalışmaktadır.</p>
-              <span class="team-tag">İklim Pusulası Oyunu</span>
+              <p class="team-bio" data-i18n="team.guliz.bio">2016'da ODTÜ Fen Bilimleri Eğitimi'nde Sürdürülebilir Kalkınma için Eğitim kapsamında Sistemsel Düşünce Becerileri konusunda doktorasını tamamladı. İlköğretim seviyesi sürdürülebilir kalkınma için eğitim ve iklim değişikliği eğitimi alanlarında çalışmaktadır.</p>
+              <span class="team-tag" data-i18n="team.guliz.tag">İklim Pusulası Oyunu</span>
             </article>
 
             <article class="team-card reveal">
@@ -1586,13 +1793,13 @@
                   <img src="files/team/mehmet.webp" alt="Doç. Dr. Mehmet Şen" loading="lazy">
                 </div>
                 <div class="team-copy">
-                  <h4 class="team-name">Doç. Dr. Mehmet Şen</h4>
-                  <p class="team-role">Konuk Eğitmen</p>
-                  <p class="team-affiliation">TED Üniversitesi · Sınıf Eğitimi ABD</p>
+                  <h4 class="team-name" data-i18n="team.mehmet.name">Doç. Dr. Mehmet Şen</h4>
+                  <p class="team-role" data-i18n="team.guest.role">Konuk Eğitmen</p>
+                  <p class="team-affiliation" data-i18n="team.mehmet.affil">TED Üniversitesi · Sınıf Eğitimi ABD</p>
                 </div>
               </div>
-              <p class="team-bio">2021'de doktorasını tamamladı. Doktora sürecinde ortaokul öğrencilerinin fen derslerinde argümantasyon sürecine katılımlarını, kullandıkları argümantasyon şemalarını ve argümantasyon eğitiminin bilimsel okuryazarlık düzeyine etkisini gerçek sınıf ortamında araştırdı.</p>
-              <span class="team-tag">Argümantasyon Pedagojisi</span>
+              <p class="team-bio" data-i18n="team.mehmet.bio">2021'de doktorasını tamamladı. Doktora sürecinde ortaokul öğrencilerinin fen derslerinde argümantasyon sürecine katılımlarını, kullandıkları argümantasyon şemalarını ve argümantasyon eğitiminin bilimsel okuryazarlık düzeyine etkisini gerçek sınıf ortamında araştırdı.</p>
+              <span class="team-tag" data-i18n="team.mehmet.tag">Argümantasyon Pedagojisi</span>
             </article>
 
             <article class="team-card reveal">
@@ -1601,13 +1808,13 @@
                   <img src="files/team/selin.jpeg" alt="Selin Kalender Sert" loading="lazy">
                 </div>
                 <div class="team-copy">
-                  <h4 class="team-name">Selin Kalender Sert</h4>
-                  <p class="team-role">Konuk Eğitmen</p>
-                  <p class="team-affiliation">İSTEK Okulları · Eğitim Uzmanı</p>
+                  <h4 class="team-name" data-i18n="team.selin.name">Selin Kalender Sert</h4>
+                  <p class="team-role" data-i18n="team.guest.role">Konuk Eğitmen</p>
+                  <p class="team-affiliation" data-i18n="team.selin.affil">İSTEK Okulları · Eğitim Uzmanı</p>
                 </div>
               </div>
-              <p class="team-bio">Hacettepe Üniversitesi Fen Bilimleri Öğretmenliği ve Ankara Üniversitesi Yaratıcı Drama Yüksek Lisans mezunudur. Çağdaş Drama Derneği Yaratıcı Drama Eğitmenlik ve Uludağ Üniversitesi Doğa ve Orman Pedagojisi Eğitmenlik Programlarını tamamlamıştır. Öğretmenlerin mesleki gelişimi ve doğa temelli çalışmalarda uzmanlaşmıştır.</p>
-              <span class="team-tag">Yaratıcı Drama · Doğa Pedagojisi</span>
+              <p class="team-bio" data-i18n="team.selin.bio">Hacettepe Üniversitesi Fen Bilimleri Öğretmenliği ve Ankara Üniversitesi Yaratıcı Drama Yüksek Lisans mezunudur. Çağdaş Drama Derneği Yaratıcı Drama Eğitmenlik ve Uludağ Üniversitesi Doğa ve Orman Pedagojisi Eğitmenlik Programlarını tamamlamıştır. Öğretmenlerin mesleki gelişimi ve doğa temelli çalışmalarda uzmanlaşmıştır.</p>
+              <span class="team-tag" data-i18n="team.selin.tag">Yaratıcı Drama · Doğa Pedagojisi</span>
             </article>
           </div>
         </div>
@@ -1618,13 +1825,13 @@
       <div class="container">
         <div class="gallery-head">
           <div>
-            <div class="eyebrow on-dark">Etkinlikten</div>
-            <h2 class="section-title">Galeri</h2>
+            <div class="eyebrow on-dark" data-i18n="gallery.eyebrow">Etkinlikten</div>
+            <h2 class="section-title" data-i18n="gallery.title">Galeri</h2>
           </div>
-          <p class="section-lead">İklim için Değişen ve Dönüştüren Öğretmenler Mesleki Gelişim Programı’ndan derlenen görseller.</p>
+          <p class="section-lead" data-i18n="gallery.lead">İklim için Değişen ve Dönüştüren Öğretmenler Mesleki Gelişim Programı’ndan derlenen görseller.</p>
         </div>
 
-        <div class="gallery-subhead"><h3>Videolar</h3></div>
+        <div class="gallery-subhead"><h3 data-i18n="gallery.sub.videos">Videolar</h3></div>
         <div class="gallery-video-wrap">
           <iframe class="gallery-video"
                   src="https://www.youtube-nocookie.com/embed/gpl_-kGvKsA?rel=0&playsinline=1"
@@ -1634,7 +1841,7 @@
                   loading="lazy"></iframe>
         </div>
 
-        <div class="gallery-subhead"><h3>Fotoğraflar</h3></div>
+        <div class="gallery-subhead"><h3 data-i18n="gallery.sub.photos">Fotoğraflar</h3></div>
         <div class="cinema-stage" id="cinemaStage">
           <div class="cinema-progress" aria-hidden="true"><span></span></div>
 
@@ -1693,34 +1900,34 @@
 
     <section class="panel alt reveal" id="contact">
       <div class="container">
-        <div class="eyebrow">İletişim</div>
-        <h2 class="section-title">İletişim</h2>
+        <div class="eyebrow" data-i18n="contact.eyebrow">İletişim</div>
+        <h2 class="section-title" data-i18n="contact.title">İletişim</h2>
 
         <div class="contact-grid" style="margin-top:28px;">
           <div class="contact-box reveal">
-            <h3>Kurumsal Çerçeve</h3>
-            <p>İklim için Değişen ve Dönüştüren Öğretmenler, ODTÜ Eğitim Fakültesi Matematik ve Fen Bilimleri Eğitimi Bölümü bünyesinde yürütülen, iklim değişikliği eğitimi odaklı bir mesleki gelişim programıdır.</p>
-            <div class="contact-note">
+            <h3 data-i18n="contact.framework.title">Kurumsal Çerçeve</h3>
+            <p data-i18n="contact.framework.body">İklim için Değişen ve Dönüştüren Öğretmenler, ODTÜ Eğitim Fakültesi Matematik ve Fen Bilimleri Eğitimi Bölümü bünyesinde yürütülen, iklim değişikliği eğitimi odaklı bir mesleki gelişim programıdır.</p>
+            <div class="contact-note" data-i18n="contact.framework.note">
               BAP Tez-D 11858 kapsamında desteklenen bu çalışma, araştırma ile uygulamayı aynı sahada buluşturur.
             </div>
           </div>
 
           <aside class="contact-side reveal">
-            <h3>Yürütücü ve Araştırmacı</h3>
+            <h3 data-i18n="contact.researchers.title">Yürütücü ve Araştırmacı</h3>
             <div class="contact-list">
               <div class="contact-card">
-                <div class="contact-label">E-POSTA</div>
+                <div class="contact-label" data-i18n="contact.email.label">E-POSTA</div>
                 <strong><a class="contact-email" href="mailto:iklimicinogret@gmail.com">iklimicinogret@gmail.com</a></strong>
               </div>
               <div class="contact-card">
-                <div class="contact-label">Yürütücü</div>
-                <strong>Prof. Dr. Elvan Şahin</strong>
-                <p>ODTÜ Matematik ve Fen Bilimleri Eğitimi Bölümü</p>
+                <div class="contact-label" data-i18n="contact.lead.label">Yürütücü</div>
+                <strong data-i18n="team.elvan.name">Prof. Dr. Elvan Şahin</strong>
+                <p data-i18n="team.elvan.affil">ODTÜ Matematik ve Fen Bilimleri Eğitimi Bölümü</p>
               </div>
               <div class="contact-card">
-                <div class="contact-label">Araştırmacı</div>
-                <strong>Arş. Gör. Ceren Başer Kanbak</strong>
-                <p>ODTÜ Matematik ve Fen Bilimleri Eğitimi Bölümü</p>
+                <div class="contact-label" data-i18n="contact.researcher.label">Araştırmacı</div>
+                <strong data-i18n="team.ceren.name">Arş. Gör. Ceren Başer Kanbak</strong>
+                <p data-i18n="team.ceren.affil">ODTÜ Matematik ve Fen Bilimleri Eğitimi Bölümü</p>
               </div>
             </div>
           </aside>
@@ -1739,31 +1946,31 @@
             <img src="project.png" alt="" width="64" height="64" decoding="async">
             <strong>İklim için Değişen ve<br>Dönüştüren Öğretmenler</strong>
           </div>
-          <p>Öğretmenlerin iklim değişikliği eğitiminde dönüştürücü rol üstlenmelerini desteklemek amacıyla geliştirilen araştırma temelli mesleki gelişim programı. ODTÜ Eğitim Fakültesi üyelerinden Prof. Dr. Elvan Şahin ve Arş. Gör. Ceren Başer Kanbak tarafından yürütülen doktora tez çalışmasıdır.</p>
+          <p data-i18n="footer.about">Öğretmenlerin iklim değişikliği eğitiminde dönüştürücü rol üstlenmelerini desteklemek amacıyla geliştirilen araştırma temelli mesleki gelişim programı. ODTÜ Eğitim Fakültesi üyelerinden Prof. Dr. Elvan Şahin ve Arş. Gör. Ceren Başer Kanbak tarafından yürütülen doktora tez çalışmasıdır.</p>
         </div>
 
         <div>
-          <div class="footer-title">Sayfalar</div>
+          <div class="footer-title" data-i18n="footer.pages">Sayfalar</div>
           <div class="footer-links">
-            <a href="#about">Hakkında</a>
-            <a href="#team">Ekip</a>
-            <a href="#purpose">Amaç</a>
-            <a href="#gallery">Galeri</a>
-            <a href="#outputs">Çıktılar</a>
-            <a href="#contact">İletişim</a>
+            <a href="#about" data-i18n="nav.about">Hakkında</a>
+            <a href="#team" data-i18n="nav.team">Ekip</a>
+            <a href="#purpose" data-i18n="nav.purpose">Amaç</a>
+            <a href="#gallery" data-i18n="nav.gallery">Galeri</a>
+            <a href="#outputs" data-i18n="nav.outputs">Çıktılar</a>
+            <a href="#contact" data-i18n="nav.contact">İletişim</a>
           </div>
         </div>
 
         <div>
-          <div class="footer-title">Kurumsal</div>
-          <p class="footer-small">Orta Doğu Teknik Üniversitesi</p>
-          <p class="footer-small">BAP Tez-D · Proje No: 11858</p>
-          <img class="footer-logo-mark" src="files/odtu-white.png" alt="ODTÜ" decoding="async">
+          <div class="footer-title" data-i18n="footer.corporate">Kurumsal</div>
+          <p class="footer-small" data-i18n="footer.corporate.university">Orta Doğu Teknik Üniversitesi</p>
+          <p class="footer-small" data-i18n="footer.corporate.bap">BAP Tez-D · Proje No: 11858</p>
+          <img class="footer-logo-mark" src="files/odtu-white-logo.png" alt="ODTÜ" decoding="async">
         </div>
       </div>
 
       <div class="footer-meta">
-        <span>© 2026 Orta Doğu Teknik Üniversitesi</span>
+        <span data-i18n="footer.copy">© 2026 Orta Doğu Teknik Üniversitesi</span>
         <span>İklim için Değişen ve Dönüştüren Öğretmenler</span>
       </div>
     </div>
@@ -1993,6 +2200,300 @@
         });
       }
     });
+
+    /* Theme toggle */
+    (function () {
+      const btn = document.getElementById('themeToggle');
+      if (!btn) return;
+      btn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme') || 'light';
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        try { localStorage.setItem('theme', next); } catch (e) {}
+      });
+    })();
+
+    /* i18n */
+    (function () {
+      const I18N = {
+        tr: {
+          // Navigation
+          "nav.about": "Hakkında",
+          "nav.purpose": "Amaç",
+          "nav.program": "Program",
+          "nav.outputs": "Çıktılar",
+          "nav.team": "Ekip",
+          "nav.gallery": "Galeri",
+          "nav.contact": "İletişim",
+          // Hero
+          "hero.kicker": "ODTÜ Eğitim Fakültesi · BAP Tez-D 11858",
+          "hero.title": "İklim için Değişen<br>ve Dönüştüren <em>Öğretmenler</em>",
+          "hero.lead": "Hizmet içi öğretmenlerin iklim değişikliğini öğretme konusundaki yetkinliklerini güçlendirmek amacıyla hazırlanmış iş birliğine dayalı bir mesleki gelişim programıdır.",
+          "hero.cta.primary": "Projeyi İncele →",
+          "hero.cta.secondary": "Çıktılara Göz At",
+          "hero.note": "Bu araştırma, Orta Doğu Teknik Üniversitesi İnsan Araştırmaları Etik Kurulu tarafından “0488-ODTÜİAEK-2025” protokol numarası ile onaylanmış olup, araştırmanın uygulama izni T.C. Millî Eğitim Bakanlığı tarafından “MEB.TT.2026.045114.02” numarası ile verilmiştir.",
+          // About
+          "about.eyebrow": "Arka Plan",
+          "about.title": "Proje Hakkında",
+          "about.p1": "Bu program, öğretmenlerin iklim değişikliği eğitimindeki yetkinliklerini artırmayı hedefleyen kapsamlı bir mesleki gelişim ve etkileşim platformudur. Katılımcıların öğretim süreçlerinde aktif rol aldığı, yenilikçi ve kapsayıcı öğrenme ortamları sunan yapılandırılmış bir eğitim modelini içermektedir.",
+          "about.p2": "Ankara ilinde aktif görev yapan ortaokul öğretmenleriyle iş birliği içinde tasarlanan eğitim modeli, öğretmenlerin sınıf içindeki gerçek ihtiyaçları göz önünde bulundurularak geliştirilmiş ve uygulanmıştır.",
+          "about.p3": "Temel amaç, öğretmenleri salt iklim değişikliği bilgilerini aktarmanın ötesinde, bu konuyu dönüştürücü ve öğrenci merkezli bir stratejiyle ele almalarını sağlayacak pedagojik gelişimleriyle donatmaktır.",
+          "about.card1.title": "Doktora Tez Projesi",
+          "about.card1.body": "Prof. Dr. Elvan Şahin & Arş. Gör. Ceren Başer Kanbak<br>Bu program, danışmanlığını Prof. Dr. Elvan Şahin'in yürüttüğü ve doktora öğrencisi Ceren Başer Kanbak tarafından hazırlanan bir doktora tez çalışmasının bir parçasıdır.",
+          "about.card2.title": "Hizmet İçi Öğretmen Katılımı",
+          "about.card2.body": "Ankara ilinde görev yapmakta olan öğretmenler ile iş birliği içinde uygulanmıştır.",
+          "about.card3.title": "ODTÜ BAP Desteği",
+          "about.card3.body": "Üniversitenin Bilimsel Araştırma Projeleri (BAP) birimi tarafından BAP Tez-D kapsamında 11858 proje numarasıyla desteklenmektedir.",
+          "about.card4.title": "İklim Değişikliği Eğitimi",
+          "about.card4.body": "Bilgi aktarımının ötesine geçerek iklim değişikliği eğitimini desteklemek amacıyla dönüştürücü pedagojilerle güçlendirilmiş bir eğitimdir.",
+          // Purpose
+          "purpose.eyebrow": "Odak ve Yönelim",
+          "purpose.title": "Amaç",
+          "purpose.lead": "Projenin temel amacı, öğretmenlerin karmaşık ve multidisipliner bir yapıya sahip iklim değişikliği konusunu öğretirken karşılaştıkları kavramsal, pedagojik ve sistemsel zorlukların üstesinden gelmelerini desteklemektir.",
+          "purpose.p1": "Bu amaç doğrultusunda, sınıf içi uygulamalarda salt bilgi aktarımına dayalı geleneksel yöntemler yerine, öğrenciyi aktif kılan ve sorgulamaya teşvik eden öğrenci merkezli, dönüştürücü öğretim stratejilerinin güçlendirilmesi hedeflenmektedir. Eğitimin yalnızca farkındalık yaratmanın ötesine geçerek davranışsal bir değişime ilham vermesi, projenin temel pedagojik yaklaşımını oluşturmaktadır.",
+          "purpose.p2": "Katılımcıların iklim okuryazarlığını desteklemek üzere tasarlanmış aktif ve etkileşimli öğrenme ortamları aracılığıyla, öğretmenlerin alan bilgisi, pedagojik yetkinlikleri ve öğretim sürecine dair motivasyonları ile isteklilikleri artırılmaktadır.",
+          // Program
+          "program.eyebrow": "Program",
+          "program.title": "Program Akışı",
+          // Outputs
+          "outputs.eyebrow": "Kaynak Merkezi",
+          "outputs.title": "Proje Çıktıları",
+          "outputs.lead": "Araştırma sürecinde üretilen materyaller belgelenmiş ve erişime hazır hâle getirilmiştir.",
+          "outputs.card1.title": "Öğretmen El Kitapçığı · Önizleme",
+          "outputs.card1.body": "Bu PDF, öğretmen el kitapçığının önizleme sürümüdür. Program kapsamında geliştirilen içerik ve etkinliklerin seçilmiş bir derlemesini sunmaktadır.",
+          "outputs.card1.cta": "PDF İndir",
+          "outputs.card1.lang": "Türkçe",
+          "outputs.card2.title": "Öğretmen El Kitabı",
+          "outputs.card2.body": "Program sürecinde üretilen içeriklerin bütüncül biçimde derleneceği öğretmen el kitabı; oturum akışı, uygulama notları ve seçili çıktılar için akademik bir özet sunacaktır.",
+          "outputs.card3.title": "Sınıf İçi Uygulama Örnekleri",
+          "outputs.card3.body": "Öğretmenlerimizin sınıf içi uygulamalarından örnek paylaşımlar.",
+          "outputs.card4.title": "Araştırma Raporları",
+          "outputs.card4.body": "Akademik paylaşımlar.",
+          "outputs.soon": "Yakında",
+          // Team
+          "team.eyebrow": "Ekibimiz",
+          "team.title": "Proje Ekibimiz",
+          "team.guest.title": "Konuk Eğitmenler",
+          "team.elvan.name": "Prof. Dr. Elvan Şahin",
+          "team.elvan.role": "Proje Yürütücüsü",
+          "team.elvan.affil": "ODTÜ Matematik ve Fen Bilimleri Eğitimi Bölümü",
+          "team.ceren.name": "Arş. Gör. Ceren Başer Kanbak",
+          "team.ceren.role": "Doktora Öğrencisi · Araştırma Görevlisi",
+          "team.ceren.affil": "ODTÜ Matematik ve Fen Bilimleri Eğitimi Bölümü",
+          "team.guliz.name": "Doç. Dr. Güliz Karaarslan Semiz",
+          "team.mehmet.name": "Doç. Dr. Mehmet Şen",
+          "team.selin.name": "Selin Kalender Sert",
+          "team.guest.role": "Konuk Eğitmen",
+          "team.elvan.bio": "Orta Doğu Teknik Üniversitesi Matematik ve Fen Bilimleri Eğitimi Bölümü öğretim üyesidir. Fen eğitimi alanında doktora (2008) ve yüksek lisans (2005), kimya eğitimi alanında lisans (2002) derecelerine sahiptir. Başlıca araştırma alanları sürdürülebilir kalkınma için eğitim ve çevre okuryazarlığıdır.",
+          "team.elvan.tag": "Sürdürülebilir Kalkınma · Çevre Okuryazarlığı",
+          "team.ceren.bio": "ODTÜ Matematik ve Fen Bilimleri Eğitimi Bölümü'nde araştırma görevlisi ve doktora öğrencisidir. Aynı bölümden lisans (2018) ve yüksek lisans (2021) derecelerine sahiptir. Başlıca araştırma alanları sürdürülebilir kalkınma için eğitim, iklim değişikliği eğitimi ve insan-çevre ilişkisidir.",
+          "team.ceren.tag": "İklim Değişikliği Eğitimi · İnsan-Çevre İlişkisi",
+          "team.guliz.affil": "Vechta Üniversitesi, Almanya",
+          "team.guliz.bio": "2016'da ODTÜ Fen Bilimleri Eğitimi'nde Sürdürülebilir Kalkınma için Eğitim kapsamında Sistemsel Düşünce Becerileri konusunda doktorasını tamamladı. İlköğretim seviyesi sürdürülebilir kalkınma için eğitim ve iklim değişikliği eğitimi alanlarında çalışmaktadır.",
+          "team.guliz.tag": "İklim Pusulası Oyunu",
+          "team.mehmet.affil": "TED Üniversitesi · Sınıf Eğitimi ABD",
+          "team.mehmet.bio": "2021'de doktorasını tamamladı. Doktora sürecinde ortaokul öğrencilerinin fen derslerinde argümantasyon sürecine katılımlarını, kullandıkları argümantasyon şemalarını ve argümantasyon eğitiminin bilimsel okuryazarlık düzeyine etkisini gerçek sınıf ortamında araştırdı.",
+          "team.mehmet.tag": "Argümantasyon Pedagojisi",
+          "team.selin.affil": "İSTEK Okulları · Eğitim Uzmanı",
+          "team.selin.bio": "Hacettepe Üniversitesi Fen Bilimleri Öğretmenliği ve Ankara Üniversitesi Yaratıcı Drama Yüksek Lisans mezunudur. Çağdaş Drama Derneği Yaratıcı Drama Eğitmenlik ve Uludağ Üniversitesi Doğa ve Orman Pedagojisi Eğitmenlik Programlarını tamamlamıştır. Öğretmenlerin mesleki gelişimi ve doğa temelli çalışmalarda uzmanlaşmıştır.",
+          "team.selin.tag": "Yaratıcı Drama · Doğa Pedagojisi",
+          // Gallery
+          "gallery.eyebrow": "Etkinlikten",
+          "gallery.title": "Galeri",
+          "gallery.lead": "İklim için Değişen ve Dönüştüren Öğretmenler Mesleki Gelişim Programı'ndan derlenen görseller.",
+          "gallery.sub.videos": "Videolar",
+          "gallery.sub.photos": "Fotoğraflar",
+          // Contact
+          "contact.eyebrow": "İletişim",
+          "contact.title": "İletişim",
+          "contact.framework.title": "Kurumsal Çerçeve",
+          "contact.framework.body": "İklim için Değişen ve Dönüştüren Öğretmenler, ODTÜ Eğitim Fakültesi Matematik ve Fen Bilimleri Eğitimi Bölümü bünyesinde yürütülen, iklim değişikliği eğitimi odaklı bir mesleki gelişim programıdır.",
+          "contact.framework.note": "BAP Tez-D 11858 kapsamında desteklenen bu çalışma, araştırma ile uygulamayı aynı sahada buluşturur.",
+          "contact.researchers.title": "Yürütücü ve Araştırmacı",
+          "contact.email.label": "E-Posta",
+          "contact.lead.label": "Yürütücü",
+          "contact.researcher.label": "Araştırmacı",
+          // Footer
+          "footer.about": "Öğretmenlerin iklim değişikliği eğitiminde dönüştürücü rol üstlenmelerini desteklemek amacıyla geliştirilen araştırma temelli mesleki gelişim programı. ODTÜ Eğitim Fakültesi üyelerinden Prof. Dr. Elvan Şahin ve Arş. Gör. Ceren Başer Kanbak tarafından yürütülen doktora tez çalışmasıdır.",
+          "footer.pages": "Sayfalar",
+          "footer.corporate": "Kurumsal",
+          "footer.corporate.university": "Orta Doğu Teknik Üniversitesi",
+          "footer.corporate.bap": "BAP Tez-D · Proje No: 11858",
+          "footer.copy": "© 2026 Orta Doğu Teknik Üniversitesi",
+          // Buttons / aria
+          "aria.menu": "Menüyü aç/kapat",
+          "aria.theme": "Tema değiştir",
+          "aria.lang": "Dili değiştir",
+          "aria.home": "Ana sayfa"
+        },
+        en: {
+          // Navigation
+          "nav.about": "About",
+          "nav.purpose": "Purpose",
+          "nav.program": "Program",
+          "nav.outputs": "Outputs",
+          "nav.team": "Team",
+          "nav.gallery": "Gallery",
+          "nav.contact": "Contact",
+          // Hero
+          "hero.kicker": "METU Faculty of Education · BAP Tez-D 11858",
+          "hero.title": "Teachers Who <em>Transform</em><br>for Climate",
+          "hero.lead": "A collaborative professional development program designed to strengthen in-service teachers' competencies in teaching climate change.",
+          "hero.cta.primary": "Explore the Project →",
+          "hero.cta.secondary": "View Outputs",
+          "hero.note": "This research was approved by the Middle East Technical University Human Research Ethics Committee under protocol number “0488-ODTÜİAEK-2025”, and the implementation permit was issued by the Ministry of National Education of Türkiye under reference “MEB.TT.2026.045114.02”.",
+          // About
+          "about.eyebrow": "Background",
+          "about.title": "About the Project",
+          "about.p1": "This program is a comprehensive professional development and engagement platform aiming to strengthen teachers' competencies in climate change education. It offers a structured educational model in which participants take an active role in the teaching process, supported by innovative and inclusive learning environments.",
+          "about.p2": "The educational model was co-designed with secondary-school teachers actively working in Ankara, and developed and implemented based on teachers' real classroom needs.",
+          "about.p3": "The core aim is to equip teachers beyond the mere transmission of climate change knowledge with the pedagogical development needed to approach the topic through a transformative, student-centered strategy.",
+          "about.card1.title": "Doctoral Thesis Project",
+          "about.card1.body": "Prof. Dr. Elvan Şahin & Res. Asst. Ceren Başer Kanbak<br>This program is part of a doctoral dissertation supervised by Prof. Dr. Elvan Şahin and developed by doctoral student Ceren Başer Kanbak.",
+          "about.card2.title": "In-Service Teacher Participation",
+          "about.card2.body": "Implemented in collaboration with teachers actively working in Ankara.",
+          "about.card3.title": "METU BAP Support",
+          "about.card3.body": "Supported by the Scientific Research Projects Coordination Unit (BAP) of METU under the BAP Tez-D program, project number 11858.",
+          "about.card4.title": "Climate Change Education",
+          "about.card4.body": "An educational approach reinforced with transformative pedagogies, going beyond information transfer to strengthen climate change education.",
+          // Purpose
+          "purpose.eyebrow": "Focus & Orientation",
+          "purpose.title": "Purpose",
+          "purpose.lead": "The core aim of the project is to support teachers in overcoming the conceptual, pedagogical, and systemic challenges they face while teaching climate change — a complex and multidisciplinary topic.",
+          "purpose.p1": "To this end, the project strengthens student-centered, transformative teaching strategies that activate learners and encourage inquiry, rather than traditional lecture-based methods of pure information transfer. Education that moves beyond awareness toward inspiring behavioral change constitutes the project's core pedagogical approach.",
+          "purpose.p2": "Through active and interactive learning environments designed to support participants' climate literacy, teachers' content knowledge, pedagogical competencies, and motivation and willingness for the teaching process are all enhanced.",
+          // Program
+          "program.eyebrow": "Program",
+          "program.title": "Program Schedule",
+          // Outputs
+          "outputs.eyebrow": "Resource Center",
+          "outputs.title": "Project Outputs",
+          "outputs.lead": "Materials produced throughout the research process have been documented and made available.",
+          "outputs.card1.title": "Teacher Handbook · Preview",
+          "outputs.card1.body": "This PDF is the preview edition of the teacher handbook. It presents a curated selection of the content and activities developed within the program. Note: the document is in Turkish only.",
+          "outputs.card1.cta": "Download PDF",
+          "outputs.card1.lang": "Turkish",
+          "outputs.card2.title": "Teacher Handbook",
+          "outputs.card2.body": "The complete teacher handbook will compile the contents produced throughout the program — session flow, implementation notes, and selected outputs — offering an academic synthesis.",
+          "outputs.card3.title": "Classroom Implementation Examples",
+          "outputs.card3.body": "Selected examples from our teachers' classroom implementations.",
+          "outputs.card4.title": "Research Reports",
+          "outputs.card4.body": "Academic publications.",
+          "outputs.soon": "Coming soon",
+          // Team
+          "team.eyebrow": "Our Team",
+          "team.title": "Project Team",
+          "team.guest.title": "Guest Trainers",
+          "team.elvan.name": "Prof. Elvan Şahin",
+          "team.elvan.role": "Principal Investigator",
+          "team.elvan.affil": "METU Department of Mathematics and Science Education",
+          "team.ceren.name": "Res. Asst. Ceren Başer Kanbak",
+          "team.ceren.role": "Doctoral Student · Research Assistant",
+          "team.ceren.affil": "METU Department of Mathematics and Science Education",
+          "team.guliz.name": "Assoc. Prof. Güliz Karaarslan Semiz",
+          "team.mehmet.name": "Assoc. Prof. Mehmet Şen",
+          "team.selin.name": "Selin Kalender Sert",
+          "team.guest.role": "Guest Trainer",
+          "team.elvan.bio": "Faculty member at the Department of Mathematics and Science Education, Middle East Technical University. She holds a PhD (2008) and an MSc (2005) in Science Education, and a BSc in Chemistry Education (2002). Her primary research areas are education for sustainable development and environmental literacy.",
+          "team.elvan.tag": "Sustainable Development · Environmental Literacy",
+          "team.ceren.bio": "Research assistant and doctoral student at the METU Department of Mathematics and Science Education. She holds BSc (2018) and MSc (2021) degrees from the same department. Her primary research areas are education for sustainable development, climate change education, and human–environment relations.",
+          "team.ceren.tag": "Climate Change Education · Human–Environment Relations",
+          "team.guliz.affil": "University of Vechta, Germany",
+          "team.guliz.bio": "Completed her PhD in 2016 at METU Science Education on Systems Thinking Skills within the scope of Education for Sustainable Development. She works in the fields of education for sustainable development and climate change education at the primary-school level.",
+          "team.guliz.tag": "Climate Compass Game",
+          "team.mehmet.affil": "TED University · Department of Elementary Education",
+          "team.mehmet.bio": "Completed his PhD in 2021. During his doctoral work, he investigated middle-school students' participation in argumentation processes in science classes, the argumentation schemes they used, and the effect of argumentation instruction on scientific literacy in authentic classroom settings.",
+          "team.mehmet.tag": "Argumentation Pedagogy",
+          "team.selin.affil": "İSTEK Schools · Education Specialist",
+          "team.selin.bio": "A graduate of Hacettepe University's Science Teaching program and Ankara University's MA in Creative Drama. She has completed certificate programs in Creative Drama Education at the Contemporary Drama Association and in Nature & Forest Pedagogy at Uludağ University. She specializes in teacher professional development and nature-based education.",
+          "team.selin.tag": "Creative Drama · Nature Pedagogy",
+          // Gallery
+          "gallery.eyebrow": "From the Event",
+          "gallery.title": "Gallery",
+          "gallery.lead": "Visuals collected from the “Teachers Who Transform for Climate” Professional Development Program.",
+          "gallery.sub.videos": "Videos",
+          "gallery.sub.photos": "Photos",
+          // Contact
+          "contact.eyebrow": "Contact",
+          "contact.title": "Contact",
+          "contact.framework.title": "Institutional Framework",
+          "contact.framework.body": "Teachers Who Transform for Climate is a professional development program focused on climate change education, conducted within the Department of Mathematics and Science Education at METU Faculty of Education.",
+          "contact.framework.note": "Supported under BAP Tez-D 11858, this work brings research and practice together in the same field.",
+          "contact.researchers.title": "Investigator & Researcher",
+          "contact.email.label": "Email",
+          "contact.lead.label": "Principal Investigator",
+          "contact.researcher.label": "Researcher",
+          // Footer
+          "footer.about": "A research-based professional development program designed to support teachers in taking on a transformative role in climate change education. A doctoral thesis study conducted by Prof. Dr. Elvan Şahin and Res. Asst. Ceren Başer Kanbak of the METU Faculty of Education.",
+          "footer.pages": "Pages",
+          "footer.corporate": "Institutional",
+          "footer.corporate.university": "Middle East Technical University",
+          "footer.corporate.bap": "BAP Tez-D · Project No: 11858",
+          "footer.copy": "© 2026 Middle East Technical University",
+          // Buttons / aria
+          "aria.menu": "Open/close menu",
+          "aria.theme": "Toggle theme",
+          "aria.lang": "Switch language",
+          "aria.home": "Home"
+        }
+      };
+
+      const META = {
+        tr: {
+          title: "İklim için Değişen ve Dönüştüren Öğretmenler · ODTÜ Mesleki Gelişim Programı",
+          description: "Fen bilimleri öğretmenleri için ODTÜ Eğitim Fakültesi'nde yürütülen, iklim değişikliği eğitimi odaklı araştırma temelli mesleki gelişim programı."
+        },
+        en: {
+          title: "Teachers Who Transform for Climate · METU Professional Development Program",
+          description: "A research-based professional development program in climate change education for science teachers, conducted at METU Faculty of Education."
+        }
+      };
+
+      function applyLang(lang) {
+        if (!I18N[lang]) lang = 'tr';
+        document.documentElement.setAttribute('lang', lang);
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          const val = I18N[lang][key];
+          if (val === undefined) return;
+          if (el.hasAttribute('data-i18n-html')) el.innerHTML = val;
+          else el.textContent = val;
+        });
+        document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+          const key = el.getAttribute('data-i18n-aria');
+          const val = I18N[lang][key];
+          if (val !== undefined) el.setAttribute('aria-label', val);
+        });
+        if (META[lang]) {
+          document.title = META[lang].title;
+          const setMeta = (sel, attr, val) => {
+            const m = document.querySelector(sel);
+            if (m) m.setAttribute(attr, val);
+          };
+          setMeta('meta[name="description"]', 'content', META[lang].description);
+          setMeta('meta[property="og:title"]', 'content', META[lang].title);
+          setMeta('meta[property="og:description"]', 'content', META[lang].description);
+          setMeta('meta[name="twitter:title"]', 'content', META[lang].title);
+          setMeta('meta[name="twitter:description"]', 'content', META[lang].description);
+        }
+        // Button shows the *target* language (what you'll switch to)
+        const langCurrent = document.querySelector('.lang-toggle .lang-current');
+        if (langCurrent) langCurrent.textContent = lang === 'tr' ? 'EN' : 'TR';
+        try { localStorage.setItem('lang', lang); } catch (e) {}
+      }
+
+      const saved = (function(){ try { return localStorage.getItem('lang'); } catch (e) { return null; } })();
+      const browserLang = (navigator.language || '').toLowerCase().startsWith('en') ? 'en' : 'tr';
+      applyLang(saved || browserLang);
+
+      const langBtn = document.getElementById('langToggle');
+      if (langBtn) {
+        langBtn.addEventListener('click', () => {
+          const current = document.documentElement.getAttribute('lang') || 'tr';
+          applyLang(current === 'tr' ? 'en' : 'tr');
+        });
+      }
+    })();
   </script>
 </body>
 </html>
