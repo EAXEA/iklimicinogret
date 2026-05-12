@@ -286,8 +286,8 @@
       pointer-events: none;
     }
     .partner img {
-      width: 168px;
-      max-width: 24vw;
+      width: 240px;
+      max-width: 30vw;
       object-fit: contain;
     }
 
@@ -525,11 +525,9 @@
       border: 1px solid rgba(18,32,26,.08);
       box-shadow: var(--shadow);
       transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease, border-color .35s ease;
-      cursor: zoom-in;
       position: relative;
     }
-    .program-posters .poster:hover,
-    .program-posters .poster:focus-visible {
+    .program-posters .poster:hover {
       transform: translateY(-6px);
       box-shadow: 0 24px 48px rgba(15,60,47,.18);
       border-color: rgba(15,142,125,.30);
@@ -542,6 +540,64 @@
       transition: transform .55s cubic-bezier(.2,.8,.2,1);
     }
     .program-posters .poster:hover img { transform: scale(1.04); }
+
+    .poster-fs-btn,
+    .poster-fs-close {
+      position: absolute;
+      width: 36px;
+      height: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.25);
+      background: rgba(7,33,26,.7);
+      color: white;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: background .2s ease, opacity .2s ease, transform .2s ease;
+      z-index: 3;
+      padding: 0;
+    }
+    .poster-fs-btn svg,
+    .poster-fs-close svg { width: 18px; height: 18px; display: block; }
+    .poster-fs-btn {
+      top: 10px;
+      right: 10px;
+      opacity: 0;
+    }
+    .program-posters .poster:hover .poster-fs-btn,
+    .program-posters .poster:focus-within .poster-fs-btn,
+    .poster-fs-btn:focus-visible { opacity: 1; }
+    .poster-fs-btn:hover { background: rgba(24,184,166,.92); }
+    .poster-fs-close {
+      top: 16px;
+      right: 16px;
+      display: none;
+      background: rgba(220,60,60,.85);
+      border-color: rgba(255,255,255,.30);
+    }
+    .poster-fs-close:hover { background: rgba(220,60,60,1); }
+    .program-posters .poster:fullscreen {
+      background: #07211a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .program-posters .poster:fullscreen img {
+      width: auto;
+      height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      aspect-ratio: auto;
+      transform: none !important;
+    }
+    .program-posters .poster:fullscreen .poster-fs-btn { display: none; }
+    .program-posters .poster:fullscreen .poster-fs-close { display: inline-flex; }
+    @media (hover: none) {
+      .poster-fs-btn { opacity: 1; }
+    }
 
     @media (max-width: 1060px) {
       .program-posters { grid-template-columns: repeat(2, 1fr); gap: 14px; }
@@ -824,7 +880,6 @@
       display: block;
       width: 100%;
       height: 100%;
-      cursor: zoom-in;
     }
     .cinema-slide img {
       width: 100%;
@@ -933,6 +988,17 @@
     .cinema-fullscreen.is-fullscreen { background: rgba(220,60,60,.85); border-color: rgba(255,255,255,.30); }
     .cinema-fullscreen.is-fullscreen .ico-enter { display: none; }
     .cinema-fullscreen.is-fullscreen .ico-exit { display: inline-flex; }
+    .cinema-fullscreen { width: 40px; height: 40px; padding: 0; gap: 0; justify-content: center; }
+    .cinema-fullscreen .cinema-fullscreen-label { display: none; }
+    .cinema-fullscreen .ico-enter,
+    .cinema-fullscreen .ico-exit {
+      width: 18px;
+      height: 18px;
+      align-items: center;
+      justify-content: center;
+    }
+    .cinema-fullscreen .ico-enter svg,
+    .cinema-fullscreen .ico-exit svg { width: 100%; height: 100%; display: block; }
     .cinema-meta-right {
       display: inline-flex;
       gap: 8px;
@@ -955,6 +1021,55 @@
       background: linear-gradient(180deg, transparent, rgba(0,0,0,.65));
       pointer-events: none;
       z-index: 2;
+    }
+
+    .gallery-subhead {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 40px 0 18px;
+    }
+    .gallery-subhead::before {
+      content: "";
+      display: inline-block;
+      width: 28px;
+      height: 2px;
+      background: var(--accent-bright);
+      flex: none;
+    }
+    .gallery-subhead h3 {
+      margin: 0;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: white;
+      letter-spacing: .01em;
+    }
+    .gallery-subhead:first-of-type { margin-top: 28px; }
+
+    .gallery-video-wrap {
+      position: relative;
+      margin: 0 auto;
+      max-width: 960px;
+      border-radius: 22px;
+      overflow: hidden;
+      background: linear-gradient(180deg, #0c2a21 0%, #07211a 100%);
+      box-shadow:
+        0 50px 120px rgba(0,0,0,.55),
+        inset 0 0 0 1px rgba(255,255,255,.06);
+    }
+    .gallery-video {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border: 0;
+    }
+    @media (max-width: 720px) {
+      .gallery-video-wrap { border-radius: 16px; }
+      .gallery-subhead h3 { font-size: 1.35rem; }
+      .gallery-subhead { margin: 32px 0 14px; }
     }
 
     .pswp { --pswp-bg: #07211a; --pswp-placeholder-bg: #0d2f25; z-index: 99999; }
@@ -1087,17 +1202,20 @@
       flex-wrap:wrap;
     }
     .footer-logo-row img:first-child{
-      width:44px;
-      height:44px;
+      width:64px;
+      height:64px;
       object-fit:contain;
     }
     .footer-logo-row strong{
-      font-size:1rem;
+      font-size:1.05rem;
       line-height:1.2;
     }
     .footer-logo-mark{
       margin-top:14px;
-      max-width:220px;
+      max-width:320px;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
     }
     .footer-title{
       margin:0 0 14px;
@@ -1335,18 +1453,18 @@
         <h2 class="section-title">Program Akışı</h2>
 
         <div class="program-posters" id="programGrid">
-          <a class="poster" href="files/panel/panel-23.jpg" data-pswp-width="1131" data-pswp-height="1600">
+          <div class="poster"><button class="poster-fs-btn" type="button" aria-label="Tam ekran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button><button class="poster-fs-close" type="button" aria-label="Tam ekrandan çık"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
             <img src="files/panel/thumb/panel-23.jpg" alt="Program akışı afişi" loading="lazy" decoding="async">
-          </a>
-          <a class="poster" href="files/panel/panel-25.jpg" data-pswp-width="1131" data-pswp-height="1600">
+          </div>
+          <div class="poster"><button class="poster-fs-btn" type="button" aria-label="Tam ekran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button><button class="poster-fs-close" type="button" aria-label="Tam ekrandan çık"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
             <img src="files/panel/thumb/panel-25.jpg" alt="Doç. Dr. Güliz Karaarslan-Semiz tanıtım afişi" loading="lazy" decoding="async">
-          </a>
-          <a class="poster" href="files/panel/program-extra.jpg" data-pswp-width="1600" data-pswp-height="2263">
+          </div>
+          <div class="poster"><button class="poster-fs-btn" type="button" aria-label="Tam ekran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button><button class="poster-fs-close" type="button" aria-label="Tam ekrandan çık"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
             <img src="files/panel/thumb/program-extra.jpg" alt="Doç. Dr. Mehmet Şen tanıtım afişi" loading="lazy" decoding="async">
-          </a>
-          <a class="poster" href="files/panel/panel-24.jpg" data-pswp-width="1131" data-pswp-height="1600">
+          </div>
+          <div class="poster"><button class="poster-fs-btn" type="button" aria-label="Tam ekran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button><button class="poster-fs-close" type="button" aria-label="Tam ekrandan çık"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
             <img src="files/panel/thumb/panel-24.jpg" alt="Selin Kalender Sert tanıtım afişi" loading="lazy" decoding="async">
-          </a>
+          </div>
         </div>
       </div>
     </section>
@@ -1361,9 +1479,9 @@
           <article class="card reveal">
             <div class="card-top">
               <div class="ico" aria-hidden="true">📘</div>
-              <h3>Öğretmen El Kitabı</h3>
+              <h3>Öğretmen El Kitapçığı · Önizleme</h3>
             </div>
-            <p>Bu PDF, öğretmen el kitapçığının önizleme sürümüdür. Sınıf içi uygulamalarda kullanılabilecek içerik ve etkinliklerin seçilmiş bir derlemesini sunar.</p>
+            <p>Bu PDF, öğretmen el kitapçığının önizleme sürümüdür. Program kapsamında geliştirilen içerik ve etkinliklerin seçilmiş bir derlemesini sunmaktadır.</p>
             <div class="card-footer">
               <a class="card-cta" href="files/ogretmenelkitabi.pdf" target="_blank" rel="noopener">PDF İndir</a>
             </div>
@@ -1372,9 +1490,9 @@
           <article class="card reveal">
             <div class="card-top">
               <div class="ico" aria-hidden="true">📗</div>
-              <h3>Nihai Kitapçık</h3>
+              <h3>Öğretmen El Kitabı</h3>
             </div>
-            <p>Program sürecinde üretilen içeriklerin bütüncül biçimde derleneceği nihai kitapçık, oturum akışı, uygulama notları ve seçili çıktılar için akademik bir özet sunacaktır.</p>
+            <p>Program sürecinde üretilen içeriklerin bütüncül biçimde derleneceği öğretmen el kitabı; oturum akışı, uygulama notları ve seçili çıktılar için akademik bir özet sunacaktır.</p>
             <div class="card-footer">
               <span class="card-cta disabled" aria-disabled="true">Yakında</span>
             </div>
@@ -1506,33 +1624,44 @@
           <p class="section-lead">İklim için Değişen ve Dönüştüren Öğretmenler Mesleki Gelişim Programı’ndan derlenen görseller.</p>
         </div>
 
+        <div class="gallery-subhead"><h3>Videolar</h3></div>
+        <div class="gallery-video-wrap">
+          <iframe class="gallery-video"
+                  src="https://www.youtube-nocookie.com/embed/gpl_-kGvKsA?rel=0&playsinline=1"
+                  title="Tanıtım videosu"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+        </div>
+
+        <div class="gallery-subhead"><h3>Fotoğraflar</h3></div>
         <div class="cinema-stage" id="cinemaStage">
           <div class="cinema-progress" aria-hidden="true"><span></span></div>
 
           <div class="swiper cinema-swiper" id="galleryGrid">
             <div class="swiper-wrapper">
-              <div class="swiper-slide cinema-slide"><a class="cinema-link" href="files/panel/panel-01.jpg" data-pswp-width="1600" data-pswp-height="1066"><img src="files/panel/panel-01.jpg" alt="Etkinlikten bir an 1" loading="lazy" decoding="async"></a></div>
-              <div class="swiper-slide cinema-slide"><a class="cinema-link" href="files/panel/panel-02.jpg" data-pswp-width="1600" data-pswp-height="1066"><img src="files/panel/panel-02.jpg" alt="Etkinlikten bir an 2" loading="lazy" decoding="async"></a></div>
-              <div class="swiper-slide cinema-slide"><a class="cinema-link" href="files/panel/panel-03.jpg" data-pswp-width="1600" data-pswp-height="1066"><img src="files/panel/panel-03.jpg" alt="Etkinlikten bir an 3" loading="lazy" decoding="async"></a></div>
-              <div class="swiper-slide cinema-slide"><a class="cinema-link" href="files/panel/panel-04.jpg" data-pswp-width="1600" data-pswp-height="1066"><img src="files/panel/panel-04.jpg" alt="Etkinlikten bir an 4" loading="lazy" decoding="async"></a></div>
-              <div class="swiper-slide cinema-slide"><a class="cinema-link" href="files/panel/panel-05.jpg" data-pswp-width="1600" data-pswp-height="1066"><img src="files/panel/panel-05.jpg" alt="Etkinlikten bir an 5" loading="lazy" decoding="async"></a></div>
-              <div class="swiper-slide cinema-slide"><a class="cinema-link" href="files/panel/panel-06.jpg" data-pswp-width="1600" data-pswp-height="1066"><img src="files/panel/panel-06.jpg" alt="Etkinlikten bir an 6" loading="lazy" decoding="async"></a></div>
-              <div class="swiper-slide cinema-slide"><a class="cinema-link" href="files/panel/panel-07.jpg" data-pswp-width="1600" data-pswp-height="1066"><img src="files/panel/panel-07.jpg" alt="Etkinlikten bir an 7" loading="lazy" decoding="async"></a></div>
-              <div class="swiper-slide cinema-slide"><a class="cinema-link" href="files/panel/panel-08.jpg" data-pswp-width="1600" data-pswp-height="1066"><img src="files/panel/panel-08.jpg" alt="Etkinlikten bir an 8" loading="lazy" decoding="async"></a></div>
-              <div class="swiper-slide cinema-slide"><a class="cinema-link" href="files/panel/panel-09.jpg" data-pswp-width="1600" data-pswp-height="1066"><img src="files/panel/panel-09.jpg" alt="Etkinlikten bir an 9" loading="lazy" decoding="async"></a></div>
-              <div class="swiper-slide cinema-slide"><a class="cinema-link" href="files/panel/panel-10.jpg" data-pswp-width="1600" data-pswp-height="1066"><img src="files/panel/panel-10.jpg" alt="Etkinlikten bir an 10" loading="lazy" decoding="async"></a></div>
-              <div class="swiper-slide cinema-slide"><a class="cinema-link" href="files/panel/panel-11.jpg" data-pswp-width="1600" data-pswp-height="1066"><img src="files/panel/panel-11.jpg" alt="Etkinlikten bir an 11" loading="lazy" decoding="async"></a></div>
-              <div class="swiper-slide cinema-slide"><a class="cinema-link" href="files/panel/panel-12.jpg" data-pswp-width="1600" data-pswp-height="1066"><img src="files/panel/panel-12.jpg" alt="Etkinlikten bir an 12" loading="lazy" decoding="async"></a></div>
-              <div class="swiper-slide cinema-slide"><a class="cinema-link" href="files/panel/panel-13.jpg" data-pswp-width="1600" data-pswp-height="1066"><img src="files/panel/panel-13.jpg" alt="Etkinlikten bir an 13" loading="lazy" decoding="async"></a></div>
-              <div class="swiper-slide cinema-slide"><a class="cinema-link" href="files/panel/panel-14.jpg" data-pswp-width="1600" data-pswp-height="1066"><img src="files/panel/panel-14.jpg" alt="Etkinlikten bir an 14" loading="lazy" decoding="async"></a></div>
-              <div class="swiper-slide cinema-slide"><a class="cinema-link" href="files/panel/panel-15.jpg" data-pswp-width="1600" data-pswp-height="1066"><img src="files/panel/panel-15.jpg" alt="Etkinlikten bir an 15" loading="lazy" decoding="async"></a></div>
-              <div class="swiper-slide cinema-slide"><a class="cinema-link" href="files/panel/panel-16.jpg" data-pswp-width="1600" data-pswp-height="1066"><img src="files/panel/panel-16.jpg" alt="Etkinlikten bir an 16" loading="lazy" decoding="async"></a></div>
-              <div class="swiper-slide cinema-slide"><a class="cinema-link" href="files/panel/panel-17.jpg" data-pswp-width="1600" data-pswp-height="1066"><img src="files/panel/panel-17.jpg" alt="Etkinlikten bir an 17" loading="lazy" decoding="async"></a></div>
-              <div class="swiper-slide cinema-slide"><a class="cinema-link" href="files/panel/panel-18.jpg" data-pswp-width="1600" data-pswp-height="1066"><img src="files/panel/panel-18.jpg" alt="Etkinlikten bir an 18" loading="lazy" decoding="async"></a></div>
-              <div class="swiper-slide cinema-slide"><a class="cinema-link" href="files/panel/panel-19.jpg" data-pswp-width="1600" data-pswp-height="1066"><img src="files/panel/panel-19.jpg" alt="Etkinlikten bir an 19" loading="lazy" decoding="async"></a></div>
-              <div class="swiper-slide cinema-slide"><a class="cinema-link" href="files/panel/panel-20.jpg" data-pswp-width="1600" data-pswp-height="1066"><img src="files/panel/panel-20.jpg" alt="Etkinlikten bir an 20" loading="lazy" decoding="async"></a></div>
-              <div class="swiper-slide cinema-slide"><a class="cinema-link" href="files/panel/panel-21.jpg" data-pswp-width="1600" data-pswp-height="1066"><img src="files/panel/panel-21.jpg" alt="Etkinlikten bir an 21" loading="lazy" decoding="async"></a></div>
-              <div class="swiper-slide cinema-slide"><a class="cinema-link" href="files/panel/panel-22.jpg" data-pswp-width="1600" data-pswp-height="1066"><img src="files/panel/panel-22.jpg" alt="Etkinlikten bir an 22" loading="lazy" decoding="async"></a></div>
+              <div class="swiper-slide cinema-slide"><div class="cinema-link"><img src="files/panel/panel-01.jpg" alt="Etkinlikten bir an 1" loading="lazy" decoding="async"></div></div>
+              <div class="swiper-slide cinema-slide"><div class="cinema-link"><img src="files/panel/panel-02.jpg" alt="Etkinlikten bir an 2" loading="lazy" decoding="async"></div></div>
+              <div class="swiper-slide cinema-slide"><div class="cinema-link"><img src="files/panel/panel-03.jpg" alt="Etkinlikten bir an 3" loading="lazy" decoding="async"></div></div>
+              <div class="swiper-slide cinema-slide"><div class="cinema-link"><img src="files/panel/panel-04.jpg" alt="Etkinlikten bir an 4" loading="lazy" decoding="async"></div></div>
+              <div class="swiper-slide cinema-slide"><div class="cinema-link"><img src="files/panel/panel-05.jpg" alt="Etkinlikten bir an 5" loading="lazy" decoding="async"></div></div>
+              <div class="swiper-slide cinema-slide"><div class="cinema-link"><img src="files/panel/panel-06.jpg" alt="Etkinlikten bir an 6" loading="lazy" decoding="async"></div></div>
+              <div class="swiper-slide cinema-slide"><div class="cinema-link"><img src="files/panel/panel-07.jpg" alt="Etkinlikten bir an 7" loading="lazy" decoding="async"></div></div>
+              <div class="swiper-slide cinema-slide"><div class="cinema-link"><img src="files/panel/panel-08.jpg" alt="Etkinlikten bir an 8" loading="lazy" decoding="async"></div></div>
+              <div class="swiper-slide cinema-slide"><div class="cinema-link"><img src="files/panel/panel-09.jpg" alt="Etkinlikten bir an 9" loading="lazy" decoding="async"></div></div>
+              <div class="swiper-slide cinema-slide"><div class="cinema-link"><img src="files/panel/panel-10.jpg" alt="Etkinlikten bir an 10" loading="lazy" decoding="async"></div></div>
+              <div class="swiper-slide cinema-slide"><div class="cinema-link"><img src="files/panel/panel-11.jpg" alt="Etkinlikten bir an 11" loading="lazy" decoding="async"></div></div>
+              <div class="swiper-slide cinema-slide"><div class="cinema-link"><img src="files/panel/panel-12.jpg" alt="Etkinlikten bir an 12" loading="lazy" decoding="async"></div></div>
+              <div class="swiper-slide cinema-slide"><div class="cinema-link"><img src="files/panel/panel-13.jpg" alt="Etkinlikten bir an 13" loading="lazy" decoding="async"></div></div>
+              <div class="swiper-slide cinema-slide"><div class="cinema-link"><img src="files/panel/panel-14.jpg" alt="Etkinlikten bir an 14" loading="lazy" decoding="async"></div></div>
+              <div class="swiper-slide cinema-slide"><div class="cinema-link"><img src="files/panel/panel-15.jpg" alt="Etkinlikten bir an 15" loading="lazy" decoding="async"></div></div>
+              <div class="swiper-slide cinema-slide"><div class="cinema-link"><img src="files/panel/panel-16.jpg" alt="Etkinlikten bir an 16" loading="lazy" decoding="async"></div></div>
+              <div class="swiper-slide cinema-slide"><div class="cinema-link"><img src="files/panel/panel-17.jpg" alt="Etkinlikten bir an 17" loading="lazy" decoding="async"></div></div>
+              <div class="swiper-slide cinema-slide"><div class="cinema-link"><img src="files/panel/panel-18.jpg" alt="Etkinlikten bir an 18" loading="lazy" decoding="async"></div></div>
+              <div class="swiper-slide cinema-slide"><div class="cinema-link"><img src="files/panel/panel-19.jpg" alt="Etkinlikten bir an 19" loading="lazy" decoding="async"></div></div>
+              <div class="swiper-slide cinema-slide"><div class="cinema-link"><img src="files/panel/panel-20.jpg" alt="Etkinlikten bir an 20" loading="lazy" decoding="async"></div></div>
+              <div class="swiper-slide cinema-slide"><div class="cinema-link"><img src="files/panel/panel-21.jpg" alt="Etkinlikten bir an 21" loading="lazy" decoding="async"></div></div>
+              <div class="swiper-slide cinema-slide"><div class="cinema-link"><img src="files/panel/panel-22.jpg" alt="Etkinlikten bir an 22" loading="lazy" decoding="async"></div></div>
             </div>
           </div>
 
@@ -1548,8 +1677,12 @@
                 <span>Duraklat</span>
               </button>
               <button class="cinema-fullscreen" type="button" aria-label="Tam ekran">
-                <span class="ico-enter">⤢</span>
-                <span class="ico-exit">✕</span>
+                <span class="ico-enter" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+                </span>
+                <span class="ico-exit" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+                </span>
                 <span class="cinema-fullscreen-label">Tam ekran</span>
               </button>
             </div>
@@ -1603,7 +1736,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <div class="footer-logo-row">
-            <img src="project.png" alt="" width="44" height="44" decoding="async">
+            <img src="project.png" alt="" width="64" height="64" decoding="async">
             <strong>İklim için Değişen ve<br>Dönüştüren Öğretmenler</strong>
           </div>
           <p>Öğretmenlerin iklim değişikliği eğitiminde dönüştürücü rol üstlenmelerini desteklemek amacıyla geliştirilen araştırma temelli mesleki gelişim programı. ODTÜ Eğitim Fakültesi üyelerinden Prof. Dr. Elvan Şahin ve Arş. Gör. Ceren Başer Kanbak tarafından yürütülen doktora tez çalışmasıdır.</p>
@@ -1625,7 +1758,7 @@
           <div class="footer-title">Kurumsal</div>
           <p class="footer-small">Orta Doğu Teknik Üniversitesi</p>
           <p class="footer-small">BAP Tez-D · Proje No: 11858</p>
-          <img class="footer-logo-mark" src="odtu.png" alt="ODTÜ" decoding="async">
+          <img class="footer-logo-mark" src="files/odtu-white.png" alt="ODTÜ" decoding="async">
         </div>
       </div>
 
@@ -1842,21 +1975,24 @@
       }
     });
 
-    if (typeof window.PhotoSwipeLightbox !== 'undefined' && typeof window.PhotoSwipe !== 'undefined') {
-      const lightbox = new window.PhotoSwipeLightbox({
-        gallery: '#galleryGrid',
-        children: '.swiper-slide:not(.swiper-slide-duplicate) a',
-        pswpModule: window.PhotoSwipe
-      });
-      lightbox.init();
-
-      const posterLightbox = new window.PhotoSwipeLightbox({
-        gallery: '#programGrid',
-        children: 'a',
-        pswpModule: window.PhotoSwipe
-      });
-      posterLightbox.init();
-    }
+    document.querySelectorAll('#programGrid .poster').forEach(poster => {
+      const enterBtn = poster.querySelector('.poster-fs-btn');
+      const exitBtn = poster.querySelector('.poster-fs-close');
+      if (enterBtn) {
+        enterBtn.addEventListener('click', e => {
+          e.preventDefault();
+          if (poster.requestFullscreen) poster.requestFullscreen().catch(() => {});
+        });
+      }
+      if (exitBtn) {
+        exitBtn.addEventListener('click', e => {
+          e.preventDefault();
+          if (document.fullscreenElement === poster && document.exitFullscreen) {
+            document.exitFullscreen().catch(() => {});
+          }
+        });
+      }
+    });
   </script>
 </body>
 </html>
