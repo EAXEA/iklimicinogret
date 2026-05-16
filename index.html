@@ -259,6 +259,7 @@
       align-items: center;
       gap: 8px;
       flex: none;
+      margin-left: auto;
     }
     .theme-toggle, .lang-toggle {
       display: inline-flex;
@@ -425,7 +426,7 @@
       align-items: center;
       gap: 12px;
       min-width: 0;
-      flex: 1 1 auto;
+      flex: 0 0 auto;
     }
     .brand img {
       width: 42px;
@@ -473,25 +474,27 @@
     .partner {
       display: flex;
       align-items: center;
+      justify-content: flex-start;
       flex: 0 0 auto;
+      width: 294px;
       padding-left: 14px;
       border-left: 1px solid var(--line);
       margin-left: 4px;
       pointer-events: none;
+      box-sizing: border-box;
     }
     .partner img {
       object-fit: contain;
       flex-shrink: 0;
     }
     .partner img.logo-light {
-      width: 340px;
-      max-width: 36vw;
+      width: 280px;
       height: auto;
     }
     .partner img.logo-dark {
-      height: 60px;
+      height: 64px;
       width: auto;
-      max-width: 36vw;
+      max-width: 100%;
     }
 
     .menu-btn {
