@@ -1418,14 +1418,23 @@
       font-size:1.05rem;
       line-height:1.2;
     }
+    .footer-logo-wrap{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin: 14px 0 0 0;
+      padding: 0;
+      text-align: left;
+    }
     .footer-logo-mark{
       display: block;
-      margin: 14px 0 0 0;
+      margin: 0;
+      padding: 0;
       max-width: 320px;
       width: 100%;
       height: auto;
       object-fit: contain;
-      object-position: left center;
+      object-position: -18px center;
     }
     .footer-title{
       margin:0 0 14px;
@@ -1932,8 +1941,9 @@
           <div class="contact-box reveal">
             <h3 data-i18n="contact.framework.title">Kurumsal Çerçeve</h3>
             <p data-i18n="contact.framework.body">İklim için Değişen ve Dönüştüren Öğretmenler, ODTÜ Eğitim Fakültesi Matematik ve Fen Bilimleri Eğitimi Bölümü bünyesinde yürütülen, iklim değişikliği eğitimi odaklı bir mesleki gelişim programıdır.</p>
-            <div class="contact-note" data-i18n="contact.framework.note">
-              BAP Tez-D 11858 kapsamında desteklenen bu çalışma, araştırma ile uygulamayı aynı sahada buluşturur.
+            <div class="contact-note" data-i18n="contact.framework.note" data-i18n-html>
+              BAP Tez-D 11858 kapsamında desteklenen bu çalışma, araştırma ile uygulamayı aynı sahada buluşturur.<br><br>
+              Yürütücü ve araştırmacıya ulaşmak ve program hakkında bilgi almak için e-posta adresi kullanılabilir.
             </div>
           </div>
 
@@ -1990,7 +2000,9 @@
           <div class="footer-title" data-i18n="footer.corporate">Kurumsal</div>
           <p class="footer-small" data-i18n="footer.corporate.university">Orta Doğu Teknik Üniversitesi</p>
           <p class="footer-small" data-i18n="footer.corporate.bap">BAP Tez-D · Proje No: 11858</p>
-          <img class="footer-logo-mark" src="files/odtu-white-logo.png" alt="ODTÜ" decoding="async">
+          <div class="footer-logo-wrap">
+            <img class="footer-logo-mark" src="files/odtu-white-logo.png" alt="ODTÜ" decoding="async">
+          </div>
         </div>
       </div>
 
@@ -2333,7 +2345,7 @@
           "contact.title": "İletişim",
           "contact.framework.title": "Kurumsal Çerçeve",
           "contact.framework.body": "İklim için Değişen ve Dönüştüren Öğretmenler, ODTÜ Eğitim Fakültesi Matematik ve Fen Bilimleri Eğitimi Bölümü bünyesinde yürütülen, iklim değişikliği eğitimi odaklı bir mesleki gelişim programıdır.",
-          "contact.framework.note": "BAP Tez-D 11858 kapsamında desteklenen bu çalışma, araştırma ile uygulamayı aynı sahada buluşturur.",
+          "contact.framework.note": "BAP Tez-D 11858 kapsamında desteklenen bu çalışma, araştırma ile uygulamayı aynı sahada buluşturur.<br><br>Yürütücü ve araştırmacıya ulaşmak ve program hakkında bilgi almak için e-posta adresi kullanılabilir.",
           "contact.researchers.title": "Yürütücü ve Araştırmacı",
           "contact.email.label": "E-Posta",
           "contact.lead.label": "Yürütücü",
@@ -2443,7 +2455,7 @@
           "contact.title": "Contact",
           "contact.framework.title": "Institutional Framework",
           "contact.framework.body": "Teachers Who Transform for Climate is a professional development program focused on climate change education, conducted within the Department of Mathematics and Science Education at METU Faculty of Education.",
-          "contact.framework.note": "Supported under BAP Tez-D 11858, this work brings research and practice together in the same field.",
+          "contact.framework.note": "Supported under BAP Tez-D 11858, this work brings research and practice together in the same field.<br><br>To reach the lead and researcher or to get information about the program, please use the email address.",
           "contact.researchers.title": "Investigator & Researcher",
           "contact.email.label": "Email",
           "contact.lead.label": "Principal Investigator",
