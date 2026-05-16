@@ -438,14 +438,15 @@
       color: #122821;
       font-size: .9rem;
       font-weight: 700;
-      line-height: 1.20;
+      line-height: 1.25;
       letter-spacing: -.005em;
-      max-width: 320px;
+      width: 145px;
+      flex-shrink: 0;
     }
     .nav {
       display: flex;
       align-items: center;
-      gap: 22px;
+      gap: 18px;
       flex: 0 0 auto;
     }
     .nav a {
@@ -479,9 +480,18 @@
       pointer-events: none;
     }
     .partner img {
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .partner img.logo-light {
       width: 340px;
       max-width: 36vw;
-      object-fit: contain;
+      height: auto;
+    }
+    .partner img.logo-dark {
+      height: 60px;
+      width: auto;
+      max-width: 36vw;
     }
 
     .menu-btn {
@@ -1080,11 +1090,11 @@
       object-fit: cover;
       transform: scale(1.06);
       transition: transform 8s ease-out, filter .6s ease;
-      filter: brightness(.5) saturate(.85);
+      filter: brightness(.88) saturate(.96);
     }
     .cinema-slide.swiper-slide-active img {
       transform: scale(1.12);
-      filter: brightness(1) saturate(1.05);
+      filter: brightness(1) saturate(1);
       animation: kenburns 9s ease-out forwards;
     }
     @keyframes kenburns {
@@ -1240,16 +1250,17 @@
     }
     .gallery-subhead:first-of-type { margin-top: 28px; }
 
+    .gallery-videos-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
     .gallery-video-wrap {
       position: relative;
-      margin: 0 auto;
-      max-width: 960px;
       border-radius: 22px;
       overflow: hidden;
       background: linear-gradient(180deg, #0c2a21 0%, #07211a 100%);
-      box-shadow:
-        0 50px 120px rgba(0,0,0,.55),
-        inset 0 0 0 1px rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.06);
     }
     .gallery-video {
       display: block;
@@ -1260,6 +1271,7 @@
       border: 0;
     }
     @media (max-width: 720px) {
+      .gallery-videos-grid { grid-template-columns: 1fr; gap: 16px; }
       .gallery-video-wrap { border-radius: 16px; }
       .gallery-subhead h3 { font-size: 1.35rem; }
       .gallery-subhead { margin: 32px 0 14px; }
@@ -1473,7 +1485,7 @@
       .nav, .partner { display: none; }
       .menu-btn { display: inline-flex; }
       .mobile-nav.show { display: block; }
-      .brand-text { max-width: 240px; font-size: .86rem; }
+      .brand-text { width: 200px; font-size: .86rem; }
       .hero-grid { padding: 60px 0 78px; }
       .hero-logo-wrap { max-width: 380px; margin: 0 auto; }
     }
@@ -1832,13 +1844,23 @@
         </div>
 
         <div class="gallery-subhead"><h3 data-i18n="gallery.sub.videos">Videolar</h3></div>
-        <div class="gallery-video-wrap">
-          <iframe class="gallery-video"
-                  src="https://www.youtube-nocookie.com/embed/gpl_-kGvKsA?rel=0&playsinline=1"
-                  title="Tanıtım videosu"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen
-                  loading="lazy"></iframe>
+        <div class="gallery-videos-grid">
+          <div class="gallery-video-wrap">
+            <iframe class="gallery-video"
+                    src="https://www.youtube-nocookie.com/embed/gpl_-kGvKsA?rel=0&playsinline=1"
+                    title="Tanıtım videosu"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                    loading="lazy"></iframe>
+          </div>
+          <div class="gallery-video-wrap">
+            <iframe class="gallery-video"
+                    src="https://www.youtube-nocookie.com/embed/5QlfShatmxo?rel=0&playsinline=1"
+                    title="Etkinlik videosu"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                    loading="lazy"></iframe>
+          </div>
         </div>
 
         <div class="gallery-subhead"><h3 data-i18n="gallery.sub.photos">Fotoğraflar</h3></div>
