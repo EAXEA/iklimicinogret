@@ -40,11 +40,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="vendor/photoswipe.css">
   <link rel="stylesheet" href="vendor/swiper-bundle.min.css">
-  <script src="vendor/swiper-bundle.min.js" defer></script>
-  <script src="vendor/photoswipe.umd.min.js" defer></script>
-  <script src="vendor/photoswipe-lightbox.umd.min.js" defer></script>
 
   <script type="application/ld+json">
   {
@@ -416,7 +412,8 @@
       box-shadow: 0 10px 30px rgba(11, 31, 24, .08);
     }
     .nav-wrap {
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
       gap: 18px;
       min-height: 76px;
@@ -426,7 +423,14 @@
       align-items: center;
       gap: 12px;
       min-width: 0;
-      flex: 0 0 auto;
+      justify-self: start;
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      justify-self: end;
+      min-width: 0;
     }
     .brand img {
       width: 42px;
@@ -437,23 +441,24 @@
     .brand-text {
       display: block;
       color: #122821;
-      font-size: .9rem;
+      font-size: .78rem;
       font-weight: 700;
-      line-height: 1.25;
-      letter-spacing: -.005em;
-      width: 145px;
+      line-height: 1.35;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      white-space: nowrap;
       flex-shrink: 0;
     }
     .nav {
       display: flex;
       align-items: center;
       gap: 18px;
-      flex: 0 0 auto;
+      justify-self: center;
     }
     .nav a {
       position: relative;
       padding: 6px 0;
-      font-size: .9rem;
+      font-size: .86rem;
       font-weight: 600;
       color: #243d34;
       transition: color .2s ease;
@@ -474,12 +479,10 @@
     .partner {
       display: flex;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: flex-end;
       flex: 0 0 auto;
-      width: 294px;
-      padding-left: 14px;
+      padding-left: 16px;
       border-left: 1px solid var(--line);
-      margin-left: 4px;
       pointer-events: none;
       box-sizing: border-box;
     }
@@ -487,13 +490,10 @@
       object-fit: contain;
       flex-shrink: 0;
     }
-    .partner img.logo-light {
-      width: 280px;
-      height: auto;
-    }
+    .partner img.logo-light,
     .partner img.logo-dark {
-      height: 64px;
-      width: auto;
+      width: 200px;
+      height: auto;
       max-width: 100%;
     }
 
@@ -525,6 +525,15 @@
       font-weight: 600;
     }
     .mobile-nav a:focus-visible { color: var(--accent); }
+    .mobile-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+    [data-theme="dark"] .mobile-controls { border-top-color: rgba(255,255,255,.08); }
 
     .hero {
       background:
@@ -1280,17 +1289,6 @@
       .gallery-subhead { margin: 32px 0 14px; }
     }
 
-    .pswp { --pswp-bg: #07211a; --pswp-placeholder-bg: #0d2f25; z-index: 99999; }
-    .pswp__bg { backdrop-filter: blur(8px); }
-    .pswp__icn { fill: rgba(255,255,255,.94); }
-    .pswp__counter { font-family: "Inter", sans-serif; opacity: .82; letter-spacing: .04em; }
-    .pswp__button { transition: opacity .2s ease; opacity: 1 !important; }
-    .pswp__button--close { background: rgba(220,60,60,.4) !important; border-radius: 50%; width: 48px; height: 48px; margin: 6px; }
-    .pswp__button--close:hover { background: rgba(220,60,60,.85) !important; }
-    .pswp__button--arrow .pswp__icn { background: rgba(255,255,255,.08); border-radius: 12px; padding: 4px; }
-    .pswp__top-bar { padding: 8px; }
-    .pswp__img { box-shadow: 0 30px 80px rgba(0,0,0,.5); border-radius: 4px; }
-
     .stats {
       display: grid;
       grid-template-columns: repeat(3, minmax(0,1fr));
@@ -1494,16 +1492,22 @@
       }
       .cards-grid { grid-template-columns: 1fr; }
       .stats { grid-template-columns: repeat(2, 1fr); }
-      .nav, .partner { display: none; }
-      .menu-btn { display: inline-flex; }
-      .mobile-nav.show { display: block; }
-      .brand-text { width: 200px; font-size: .86rem; }
       .hero-grid { padding: 60px 0 78px; }
       .hero-logo-wrap { max-width: 380px; margin: 0 auto; }
+    }
+    @media (max-width: 1260px) {
+      .nav-wrap { grid-template-columns: 1fr auto; }
+      .nav, .partner, .header-controls { display: none; }
+      .menu-btn { display: inline-flex; }
+      .mobile-nav.show { display: block; }
+      .brand-text { max-width: 280px; font-size: .74rem; white-space: normal; flex-shrink: 1; min-width: 0; }
     }
     @media (max-width: 720px) {
       .container { width: min(var(--max), calc(100% - 28px)); }
       .nav-wrap { min-height: 64px; }
+      .brand { gap: 10px; }
+      .brand img { width: 34px; height: 34px; }
+      .brand-text { font-size: .66rem; letter-spacing: .03em; }
       .hero { padding-top: 24px; }
       .hero-grid { padding: 24px 0 64px; gap: 28px; }
       .hero h1 { max-width: 13ch; font-size: clamp(2.4rem, 11vw, 3.2rem); }
@@ -1536,13 +1540,13 @@
 </head>
 <body>
 
-  <a class="skip-link" href="#main">İçeriğe atla</a>
+  <a class="skip-link" href="#main" data-i18n="a11y.skip">İçeriğe atla</a>
 
   <header class="topbar">
     <div class="container nav-wrap">
-      <a class="brand" href="#hero" aria-label="Ana sayfa">
+      <a class="brand" href="#hero" data-i18n-aria="aria.home" aria-label="Ana sayfa">
         <img src="project.png" alt="" width="42" height="42" decoding="async">
-        <span class="brand-text">İklim için Değişen ve<br>Dönüştüren Öğretmenler</span>
+        <span class="brand-text" lang="tr">İKLİM İÇİN DEĞİŞEN VE<br>DÖNÜŞTÜREN ÖĞRETMENLER</span>
       </a>
 
       <nav class="nav" aria-label="Ana menü">
@@ -1555,26 +1559,28 @@
         <a href="#contact" data-i18n="nav.contact">İletişim</a>
       </nav>
 
-      <div class="header-controls">
-        <button class="lang-toggle" id="langToggle" type="button" aria-label="Dili değiştir">
-          <span class="lang-current">TR</span>
-        </button>
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Tema değiştir">
-          <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-          <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      <div class="header-right">
+        <div class="header-controls">
+          <button class="lang-toggle" id="langToggle" type="button" data-i18n-aria="aria.lang" aria-label="Dili değiştir">
+            <span class="lang-current">TR</span>
+          </button>
+          <button class="theme-toggle" id="themeToggle" type="button" data-i18n-aria="aria.theme" aria-label="Tema değiştir">
+            <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          </button>
+        </div>
+
+        <div class="partner" data-i18n-aria="aria.partner" aria-label="Yürütücü kurum">
+          <img class="logo-light" src="files/odtu-header-black.png" alt="ODTÜ">
+          <img class="logo-dark" src="files/odtu-header-white.png" alt="ODTÜ">
+        </div>
+
+        <button class="menu-btn" id="menuBtn" data-i18n-aria="aria.menu" aria-label="Menüyü aç/kapat" aria-expanded="false" aria-controls="mobileNav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
         </button>
       </div>
-
-      <div class="partner" aria-label="Yürütücü kurum">
-        <img class="logo-light" src="odtu.png" alt="ODTÜ">
-        <img class="logo-dark" src="files/odtu-white-logo.png" alt="ODTÜ">
-      </div>
-
-      <button class="menu-btn" id="menuBtn" aria-label="Menüyü aç/kapat" aria-expanded="false" aria-controls="mobileNav">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
     </div>
 
     <div class="container mobile-nav" id="mobileNav">
@@ -1585,6 +1591,15 @@
       <a href="#team" data-i18n="nav.team">Ekip</a>
       <a href="#gallery" data-i18n="nav.gallery">Galeri</a>
       <a href="#contact" data-i18n="nav.contact">İletişim</a>
+      <div class="mobile-controls">
+        <button class="lang-toggle" id="langToggleM" type="button" data-i18n-aria="aria.lang" aria-label="Dili değiştir">
+          <span class="lang-current">TR</span>
+        </button>
+        <button class="theme-toggle" id="themeToggleM" type="button" data-i18n-aria="aria.theme" aria-label="Tema değiştir">
+          <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -1683,17 +1698,17 @@
         <h2 class="section-title" data-i18n="program.title">Program Akışı</h2>
 
         <div class="program-posters" id="programGrid">
-          <div class="poster"><button class="poster-fs-btn" type="button" aria-label="Tam ekran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button><button class="poster-fs-close" type="button" aria-label="Tam ekrandan çık"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-            <img src="files/panel/thumb/panel-23.jpg" alt="Program akışı afişi" loading="lazy" decoding="async">
+          <div class="poster"><button class="poster-fs-btn" type="button" data-i18n-aria="aria.fsEnter" aria-label="Tam ekran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button><button class="poster-fs-close" type="button" data-i18n-aria="aria.fsExit" aria-label="Tam ekrandan çık"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+            <img src="files/panel/thumb/panel-23.jpg" data-i18n-alt="program.altFlow" alt="Program akışı afişi" loading="lazy" decoding="async">
           </div>
-          <div class="poster"><button class="poster-fs-btn" type="button" aria-label="Tam ekran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button><button class="poster-fs-close" type="button" aria-label="Tam ekrandan çık"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-            <img src="files/panel/thumb/panel-25.jpg" alt="Doç. Dr. Güliz Karaarslan-Semiz tanıtım afişi" loading="lazy" decoding="async">
+          <div class="poster"><button class="poster-fs-btn" type="button" data-i18n-aria="aria.fsEnter" aria-label="Tam ekran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button><button class="poster-fs-close" type="button" data-i18n-aria="aria.fsExit" aria-label="Tam ekrandan çık"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+            <img src="files/panel/thumb/panel-25.jpg" data-i18n-alt="program.altGuliz" alt="Doç. Dr. Güliz Karaarslan-Semiz tanıtım afişi" loading="lazy" decoding="async">
           </div>
-          <div class="poster"><button class="poster-fs-btn" type="button" aria-label="Tam ekran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button><button class="poster-fs-close" type="button" aria-label="Tam ekrandan çık"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-            <img src="files/panel/thumb/program-extra.jpg" alt="Doç. Dr. Mehmet Şen tanıtım afişi" loading="lazy" decoding="async">
+          <div class="poster"><button class="poster-fs-btn" type="button" data-i18n-aria="aria.fsEnter" aria-label="Tam ekran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button><button class="poster-fs-close" type="button" data-i18n-aria="aria.fsExit" aria-label="Tam ekrandan çık"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+            <img src="files/panel/thumb/program-extra.jpg" data-i18n-alt="program.altMehmet" alt="Doç. Dr. Mehmet Şen tanıtım afişi" loading="lazy" decoding="async">
           </div>
-          <div class="poster"><button class="poster-fs-btn" type="button" aria-label="Tam ekran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button><button class="poster-fs-close" type="button" aria-label="Tam ekrandan çık"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-            <img src="files/panel/thumb/panel-24.jpg" alt="Selin Kalender Sert tanıtım afişi" loading="lazy" decoding="async">
+          <div class="poster"><button class="poster-fs-btn" type="button" data-i18n-aria="aria.fsEnter" aria-label="Tam ekran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button><button class="poster-fs-close" type="button" data-i18n-aria="aria.fsExit" aria-label="Tam ekrandan çık"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+            <img src="files/panel/thumb/panel-24.jpg" data-i18n-alt="program.altSelin" alt="Selin Kalender Sert tanıtım afişi" loading="lazy" decoding="async">
           </div>
         </div>
       </div>
@@ -1906,8 +1921,8 @@
             </div>
           </div>
 
-          <button class="cinema-nav cinema-prev" type="button" aria-label="Önceki görsel">‹</button>
-          <button class="cinema-nav cinema-next" type="button" aria-label="Sonraki görsel">›</button>
+          <button class="cinema-nav cinema-prev" type="button" data-i18n-aria="aria.prev" aria-label="Önceki görsel">‹</button>
+          <button class="cinema-nav cinema-next" type="button" data-i18n-aria="aria.next" aria-label="Sonraki görsel">›</button>
 
           <div class="cinema-meta">
             <div class="cinema-counter"><span class="current">01</span><em>/</em><span class="total">22</span></div>
@@ -2013,8 +2028,8 @@
     </div>
   </footer>
 
-
-
+  <!-- Swiper must load before the inline init below so the gallery uses Swiper (not the native fallback) -->
+  <script src="vendor/swiper-bundle.min.js"></script>
   <script>
     const menuBtn = document.getElementById('menuBtn');
     const mobileNav = document.getElementById('mobileNav');
@@ -2063,6 +2078,32 @@
     let autoplayTimer = null;
     let swiperInstance = null;
 
+    // i18n-aware dynamic labels (gallery controls + photo alts)
+    const tg = (key, fallback) => { const v = window.__t && window.__t(key); return v !== undefined ? v : fallback; };
+    function refreshGalleryLabels() {
+      if (playBtn) {
+        const paused = playBtn.classList.contains('paused');
+        playBtn.setAttribute('aria-label', paused ? tg('gallery.playAria', 'Slaytları oynat') : tg('gallery.pauseAria', 'Slaytları duraklat'));
+        const label = playBtn.querySelector('span:last-child');
+        if (label) label.textContent = paused ? tg('gallery.playText', 'Oynat') : tg('gallery.pauseText', 'Duraklat');
+      }
+      if (fullscreenBtn) {
+        const fs = fullscreenBtn.classList.contains('is-fullscreen');
+        fullscreenBtn.setAttribute('aria-label', fs ? tg('aria.fsExit', 'Tam ekrandan çık') : tg('aria.fsEnter', 'Tam ekran'));
+        const flabel = fullscreenBtn.querySelector('.cinema-fullscreen-label');
+        if (flabel) flabel.textContent = fs ? tg('gallery.fsExitText', 'Kapat') : tg('gallery.fsText', 'Tam ekran');
+      }
+    }
+    function refreshGalleryAlts() {
+      const base = tg('gallery.photoAlt', 'Etkinlikten bir an');
+      slides.forEach((slide, i) => {
+        const img = slide.querySelector('img');
+        if (img) img.alt = base + ' ' + (i + 1);
+      });
+    }
+    document.addEventListener('langchange', () => { refreshGalleryLabels(); refreshGalleryAlts(); });
+    refreshGalleryAlts();
+
     function clampIndex(index) {
       return (index + totalSlides) % totalSlides;
     }
@@ -2087,11 +2128,7 @@
         goNext();
       }, 3500);
       playBtn?.classList.remove('paused');
-      if (playBtn) {
-        playBtn.setAttribute('aria-label', 'Slaytları duraklat');
-        const label = playBtn.querySelector('span:last-child');
-        if (label) label.textContent = 'Duraklat';
-      }
+      refreshGalleryLabels();
     }
 
     function stopFallbackAutoplay() {
@@ -2100,11 +2137,7 @@
         autoplayTimer = null;
       }
       playBtn?.classList.add('paused');
-      if (playBtn) {
-        playBtn.setAttribute('aria-label', 'Slaytları oynat');
-        const label = playBtn.querySelector('span:last-child');
-        if (label) label.textContent = 'Oynat';
-      }
+      refreshGalleryLabels();
     }
 
     function goPrev() {
@@ -2130,10 +2163,6 @@
         centeredSlides: true,
         speed: 800,
         watchOverflow: true,
-        navigation: {
-          nextEl: nextBtn,
-          prevEl: prevBtn
-        },
         autoplay: {
           delay: 3500,
           disableOnInteraction: false,
@@ -2154,12 +2183,8 @@
           }
         }
       });
-      if (playBtn) {
-        playBtn.classList.remove('paused');
-        playBtn.setAttribute('aria-label', 'Slaytları duraklat');
-        const label = playBtn.querySelector('span:last-child');
-        if (label) label.textContent = 'Duraklat';
-      }
+      if (playBtn) playBtn.classList.remove('paused');
+      refreshGalleryLabels();
     } else {
       // Native fallback: still works if Swiper asset fails to load.
       setCounter(0);
@@ -2180,16 +2205,11 @@
         if (running) {
           swiperInstance.autoplay.stop();
           playBtn.classList.add('paused');
-          playBtn.setAttribute('aria-label', 'Slaytları oynat');
-          const label = playBtn.querySelector('span:last-child');
-          if (label) label.textContent = 'Oynat';
         } else {
           swiperInstance.autoplay.start();
           playBtn.classList.remove('paused');
-          playBtn.setAttribute('aria-label', 'Slaytları duraklat');
-          const label = playBtn.querySelector('span:last-child');
-          if (label) label.textContent = 'Duraklat';
         }
+        refreshGalleryLabels();
       } else if (autoplayTimer) {
         stopFallbackAutoplay();
       } else {
@@ -2212,11 +2232,7 @@
     document.addEventListener('fullscreenchange', () => {
       const inFullscreen = document.fullscreenElement === stage;
       fullscreenBtn?.classList.toggle('is-fullscreen', inFullscreen);
-      if (fullscreenBtn) {
-        fullscreenBtn.setAttribute('aria-label', inFullscreen ? 'Tam ekrandan çık' : 'Tam ekran');
-        const label = fullscreenBtn.querySelector('.cinema-fullscreen-label');
-        if (label) label.textContent = inFullscreen ? 'Kapat' : 'Tam ekran';
-      }
+      refreshGalleryLabels();
     });
 
     document.querySelectorAll('#programGrid .poster').forEach(poster => {
@@ -2240,14 +2256,14 @@
 
     /* Theme toggle */
     (function () {
-      const btn = document.getElementById('themeToggle');
-      if (!btn) return;
-      btn.addEventListener('click', () => {
+      const btns = document.querySelectorAll('.theme-toggle');
+      if (!btns.length) return;
+      btns.forEach(btn => btn.addEventListener('click', () => {
         const current = document.documentElement.getAttribute('data-theme') || 'light';
         const next = current === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', next);
         try { localStorage.setItem('theme', next); } catch (e) {}
-      });
+      }));
     })();
 
     /* i18n */
@@ -2361,7 +2377,24 @@
           "aria.menu": "Menüyü aç/kapat",
           "aria.theme": "Tema değiştir",
           "aria.lang": "Dili değiştir",
-          "aria.home": "Ana sayfa"
+          "aria.home": "Ana sayfa",
+          "aria.partner": "Yürütücü kurum",
+          "aria.prev": "Önceki görsel",
+          "aria.next": "Sonraki görsel",
+          "aria.fsEnter": "Tam ekran",
+          "aria.fsExit": "Tam ekrandan çık",
+          "a11y.skip": "İçeriğe atla",
+          "gallery.pauseText": "Duraklat",
+          "gallery.playText": "Oynat",
+          "gallery.pauseAria": "Slaytları duraklat",
+          "gallery.playAria": "Slaytları oynat",
+          "gallery.fsText": "Tam ekran",
+          "gallery.fsExitText": "Kapat",
+          "gallery.photoAlt": "Etkinlikten bir an",
+          "program.altFlow": "Program akışı afişi",
+          "program.altGuliz": "Doç. Dr. Güliz Karaarslan-Semiz tanıtım afişi",
+          "program.altMehmet": "Doç. Dr. Mehmet Şen tanıtım afişi",
+          "program.altSelin": "Selin Kalender Sert tanıtım afişi"
         },
         en: {
           // Navigation
@@ -2471,7 +2504,24 @@
           "aria.menu": "Open/close menu",
           "aria.theme": "Toggle theme",
           "aria.lang": "Switch language",
-          "aria.home": "Home"
+          "aria.home": "Home",
+          "aria.partner": "Executing institution",
+          "aria.prev": "Previous image",
+          "aria.next": "Next image",
+          "aria.fsEnter": "Enter fullscreen",
+          "aria.fsExit": "Exit fullscreen",
+          "a11y.skip": "Skip to content",
+          "gallery.pauseText": "Pause",
+          "gallery.playText": "Play",
+          "gallery.pauseAria": "Pause slideshow",
+          "gallery.playAria": "Play slideshow",
+          "gallery.fsText": "Fullscreen",
+          "gallery.fsExitText": "Close",
+          "gallery.photoAlt": "A moment from the event",
+          "program.altFlow": "Program schedule poster",
+          "program.altGuliz": "Assoc. Prof. Güliz Karaarslan-Semiz session poster",
+          "program.altMehmet": "Assoc. Prof. Mehmet Şen session poster",
+          "program.altSelin": "Selin Kalender Sert session poster"
         }
       };
 
@@ -2501,6 +2551,11 @@
           const val = I18N[lang][key];
           if (val !== undefined) el.setAttribute('aria-label', val);
         });
+        document.querySelectorAll('[data-i18n-alt]').forEach(el => {
+          const key = el.getAttribute('data-i18n-alt');
+          const val = I18N[lang][key];
+          if (val !== undefined) el.setAttribute('alt', val);
+        });
         if (META[lang]) {
           document.title = META[lang].title;
           const setMeta = (sel, attr, val) => {
@@ -2514,8 +2569,13 @@
           setMeta('meta[name="twitter:description"]', 'content', META[lang].description);
         }
         // Button shows the *target* language (what you'll switch to)
-        const langCurrent = document.querySelector('.lang-toggle .lang-current');
-        if (langCurrent) langCurrent.textContent = lang === 'tr' ? 'EN' : 'TR';
+        document.querySelectorAll('.lang-toggle .lang-current').forEach(el => {
+          el.textContent = lang === 'tr' ? 'EN' : 'TR';
+        });
+        // Expose current translation lookup + notify dynamic widgets (gallery)
+        window.__lang = lang;
+        window.__t = (k) => (I18N[lang] && I18N[lang][k] !== undefined) ? I18N[lang][k] : undefined;
+        document.dispatchEvent(new CustomEvent('langchange', { detail: { lang } }));
         try { localStorage.setItem('lang', lang); } catch (e) {}
       }
 
@@ -2523,13 +2583,12 @@
       const browserLang = (navigator.language || '').toLowerCase().startsWith('en') ? 'en' : 'tr';
       applyLang(saved || browserLang);
 
-      const langBtn = document.getElementById('langToggle');
-      if (langBtn) {
+      document.querySelectorAll('.lang-toggle').forEach(langBtn => {
         langBtn.addEventListener('click', () => {
           const current = document.documentElement.getAttribute('lang') || 'tr';
           applyLang(current === 'tr' ? 'en' : 'tr');
         });
-      }
+      });
     })();
   </script>
 </body>
